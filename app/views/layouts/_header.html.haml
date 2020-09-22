@@ -1,5 +1,5 @@
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  %a.navbar-brand{:href => "#"} Courses App
+  = link_to "Course App", root_path, class: "navbar-brand"
   %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
     %span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
@@ -13,6 +13,10 @@
           = link_to courses_path, class: "nav-link" do
             .fa.fa-book
             Courses
+        %li.nav-item
+          = link_to new_course_path, class: "nav-link" do
+            .fa.fa-plus
+            New course
         = form_tag(courses_path, method: :get, class: "form-inline my-2 my-lg-0") do
           = text_field_tag :title, params[:title], autocomplete: "off", placeholder: "Search", class: "form-control mr-sm-2"
           %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} Search
