@@ -2,10 +2,12 @@
   .card-header
     .fa.fa-user
     = user.email
+
   .card-footer
     Signed up
     = time_ago_in_words(user.created_at)
     ago
+
   .card-footer
     sing in count
     = user.sign_in_count
@@ -21,6 +23,7 @@
     .row
     last sign in ip
     = user.last_sign_in_ip
+
   .card-footer
     Confirmed email?
     - if user.confirmed_at.present?

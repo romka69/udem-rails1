@@ -2,8 +2,6 @@
   Courses:
   = @courses.size
 
-.card-columns
+.card-columns.pt-4
   - @courses.each do |course|
     = render "courses/course", course: course
-
-%br

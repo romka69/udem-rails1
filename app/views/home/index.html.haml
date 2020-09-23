@@ -1,4 +1,4 @@
-.jumbotron.mt-4
+.jumbotron
   .display-4.pb-4
     What do you want learn today?
 
@@ -14,6 +14,7 @@
     online courses
     .row
     Explore a variety of fresh topics
+
   .card.card-body
     %h4
       .fa.fa-chalkboard-teacher
@@ -21,6 +22,7 @@
     expert instructors
     .row
     Find the right instructor for you
+
   .card.card-body
     %h4
       .fa.fa-graduation-cap
@@ -28,6 +30,7 @@
     active learners
     .row
     Join the knowledge sharing community
+
   .card.card-body
     %h4
       .fa.fa-infinity
@@ -37,18 +40,21 @@
     Learn of you schedule
 
 %hr
+
 %h3
   Popular courses
 .card-columns
   - @courses.each do |course|
     = render "courses/course", course: course
 %hr
+
 %h3
   Top rated courses
 .card-columns
   - @courses.each do |course|
     = render "courses/course", course: course
 %hr
+
 %h3
   Latest courses
 .card-columns
