@@ -5,8 +5,13 @@
 
   .form-inputs
     = f.input :title
+    = f.input :short_description
     = f.label :description
     = f.rich_text_area :description
+    %small= f.error :description, class: "text-danger"
+    = f.input :language, collection: %w(English Russian), include_blank: false
+    = f.input :level, collection: %w(Beginner Intermediate Advanced), include_blank: false
+    = f.input :price
 
   .form-actions
-    = f.button :submit, class: "btn btn-primary mt-4"
+    = f.button :submit

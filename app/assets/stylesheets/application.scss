@@ -2,3 +2,6 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "./actiontext";
+
+.form-control.is-invalid{ background-image: none}
+.form-control.is-valid{ background-image: none}

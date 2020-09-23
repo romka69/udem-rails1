@@ -5,8 +5,10 @@ class Course < ApplicationRecord
   friendly_id :title, use: :slugged
   # friendly_id :generated_slug, use: :slugged
 
-  validates :title, presence: true
+  validates :title, :language, :level, presence: true
+  validates :short_description, presence: true, length: { minimum: 5, maximum: 300 }
   validates :description, presence: true, length: { minimum: 5 }
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   has_rich_text :description
 
