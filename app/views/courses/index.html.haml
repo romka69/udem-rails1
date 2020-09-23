@@ -4,7 +4,8 @@
 
 .row.pt-4
   .col-lg-2
-    = search_form_for @q do |f|
+    // = search_form_for @q do |f|
+    = search_form_for @ransack_courses, as: :courses_search  do |f|
       = f.label :title
       = f.search_field :title_cont, class: "form-control form-control-sm"
       = f.label :description

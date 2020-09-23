@@ -25,10 +25,17 @@
           = link_to users_path, class: "nav-link" do
             .fa.fa-user
             Users
+        
+        = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
+          .input-group
+            = f.search_field :title_or_short_description_cont, class: "form-control-sm"
+            %span.input-group-append
+              %button.btn.btn-primary.btn-sm{type: "submit"}
+                %span.fa.fa-search{"aria-hidden" => "true"}
 
-        = form_tag(courses_path, method: :get, class: "form-inline my-2 my-lg-0") do
-          = text_field_tag :title, params[:title], autocomplete: "off", placeholder: "Search", class: "form-control mr-sm-2"
-          %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} Search
+        -# = form_tag(courses_path, method: :get, class: "form-inline my-2 my-lg-0") do
+        -#   = text_field_tag :title, params[:title], autocomplete: "off", placeholder: "Search", class: "form-control mr-sm-2"
+        -#   %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} Search
 
         %li.nav-item.dropdown
           %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}= current_user.email
