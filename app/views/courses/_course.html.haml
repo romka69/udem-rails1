@@ -28,7 +28,7 @@
       .col-6
         .text-right
           .fa.fa-chalkboard-teacher
-          = course.user
+          = course.user.username
 
   .card-footer.text-right
     = link_to 'Show', course_path(course), class: "btn btn-sm btn-primary"
