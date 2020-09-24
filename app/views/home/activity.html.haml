@@ -1,0 +1,17 @@
+%h1 Activity
+
+- @activities.each do |a|
+  .row
+  %strong Id:
+  = a.id
+  %strong Type:
+  = a.trackable_type
+  %strong Type id:
+  = a.trackable_id
+  /= link_to activity.trackable, activity.trackable
+  %strong Action:
+  = a.key
+  %strong Params:
+  = a.parameters
+  %strong Owner:
+  = a.owner.email
