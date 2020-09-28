@@ -30,7 +30,9 @@
           .fa.fa-chalkboard-teacher
           = course.user.username
 
-  .card-footer.text-right
-    = link_to 'Show', course_path(course), class: "btn btn-sm btn-primary"
-    = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-info"
-    = link_to 'Destroy', course_path(course), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"
+  - if policy(course).edit?
+    .card-footer.text-right
+      / if can edit
+      = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-info"
+      / if can destroy
+      = link_to 'Destroy', course_path(course), method: :delete, data: { confirm: 'Are you sure?' }

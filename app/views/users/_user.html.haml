@@ -30,3 +30,10 @@
       .badge.badge-success Yes
     - else
       .badge.badge-success No
+
+  .card-footer.pb-3
+    - user.roles.each do |role|
+      .badge.badge-info
+        = role.name
+    - if policy(user).edit?
+      = link_to "Edit roles", edit_user_path(user), class: "btn btn-sm btn-secondary float-right"

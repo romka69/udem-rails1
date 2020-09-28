@@ -157,6 +157,8 @@ GEM
     public_suffix (4.0.6)
     puma (4.3.6)
       nio4r (~> 2.0)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.2.3)
     rack-proxy (0.6.5)
       rack
@@ -201,6 +203,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rolify (5.3.0)
     ruby_parser (3.15.0)
       sexp_processor (~> 4.9)
     rubyzip (2.3.0)
@@ -283,8 +286,10 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   public_activity
   puma (~> 4.1)
+  pundit
   rails (~> 6.0.3, >= 6.0.3.3)
   ransack
+  rolify
   sass-rails (>= 6)
   selenium-webdriver
   simple_form
