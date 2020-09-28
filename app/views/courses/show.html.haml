@@ -1,0 +1,9 @@
+%nav.mb-4{"aria-label" => "breadcrumb"}
+  %ol.breadcrumb.mb-0
+    %li.breadcrumb-item
+      = link_to "Courses", courses_path
+
+    %li.breadcrumb-item.active{"aria-current" => "page"}
+      = @course.title
+
+=render "courses/course", course: @course

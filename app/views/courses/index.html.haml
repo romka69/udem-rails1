@@ -1,0 +1,28 @@
+%h1
+  Courses
+  .badge.badge-info
+    = @courses.count
+
+.row
+  .col-lg-2.py-4
+    = search_form_for @ransack_courses, as: :courses_search  do |f|
+      = f.label :title
+      = f.search_field :title_or_short_description_cont, class: "form-control form-control-sm"
+      = f.label :description
+      = f.search_field :short_description_cont, class: "form-control form-control-sm"
+      = f.label :language
+      = f.select :language_cont, Course.languages, include_blank: true, class: "form-control form-control-sm"
+      = f.label :level
+      = f.select :level_cont, Course.levels, include_blank: true, class: "form-control form-control-sm"
+      = f.label :price
+      = f.search_field :price_eq, class: "form-control form-control-sm"
+      = f.label :user_email
+      = f.search_field :user_email_cont, class: "form-control form-control-sm"
+      = f.submit
+      = link_to courses_path, class: "btn btn-sm" do
+        .fa.fa-sync
+
+  .col-lg-10
+    .card-columns
+      - @courses.each do |course|
+        = render "courses/course", course: course

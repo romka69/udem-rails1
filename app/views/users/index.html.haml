@@ -1,0 +1,38 @@
+%h1
+  Users
+  .badge.badge-info
+    = @users.count
+
+.card-columns.pt-4.mb-4
+  - @users.each do |user|
+    = render "users/user", user: user
+
+.mb-2
+  = search_form_for @q do |f|
+    = f.search_field :email_cont, placeholder: "by email"
+    = f.submit
+    = link_to users_path, class: "btn btn-sm" do
+      .fa.fa-sync
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th id
+      %th= sort_link(@q, :email)
+      %th= sort_link(@q, :created_at)
+      %th= "Sign in count"
+      %th= "Current sign in at"
+      %th= "Last sign in at"
+      %th= "Current sign in ip"
+      %th= "Last sign in ip"
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.id
+        %td= user.email
+        %td= user.created_at
+        %td= user.sign_in_count
+        %td= user.current_sign_in_at
+        %td= user.last_sign_in_at
+        %td= user.current_sign_in_ip
+        %td= user.last_sign_in_ip

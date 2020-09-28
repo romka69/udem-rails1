@@ -1,0 +1,63 @@
+.jumbotron
+  .display-4.pb-4
+    What do you want learn today?
+
+  - if current_user
+    = search_form_for @ransack_courses, as: :courses_search, url: courses_path, class: "form-inline my-2 my-lg-0" do |f|
+      = f.search_field :title_or_short_description_cont, placeholder: "Search", class: "form-control mr-sm-2"
+      %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} Search
+
+.card-group.pb-3
+  .card.card-body
+    %h4
+      .fa.fa-graduation-cap
+    = Course.count
+    online courses
+    .row
+    Explore a variety of fresh topics
+
+  .card.card-body
+    %h4
+      .fa.fa-chalkboard-teacher
+    = Course.distinct.count(:user_id)
+    expert instructors
+    .row
+    Find the right instructor for you
+
+  .card.card-body
+    %h4
+      .fa.fa-graduation-cap
+    = User.count
+    active learners
+    .row
+    Join the knowledge sharing community
+
+  .card.card-body
+    %h4
+      .fa.fa-infinity
+    = User.count
+    Lifetime access
+    .row
+    Learn of you schedule
+
+%hr
+
+%h3
+  Popular courses
+.card-columns
+  - @courses.each do |course|
+    = render "courses/course", course: course
+%hr
+
+%h3
+  Top rated courses
+.card-columns
+  - @courses.each do |course|
+    = render "courses/course", course: course
+%hr
+
+%h3
+  Latest courses
+.card-columns
+  - @latest_courses.each do |course|
+    = render "courses/course", course: course
