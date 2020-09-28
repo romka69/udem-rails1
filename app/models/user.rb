@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   has_many :courses
 
+  validate :must_have_a_role, on: :update
+
   after_create :assign_default_role
 
   def username
@@ -24,6 +26,12 @@ class User < ApplicationRecord
     else
       self.add_role(:student) if self.roles.blank?
       self.add_role(:teacher)
+    end
+  end
+
+  def must_have_a_role
+    unless roles.any?
+      errors.add(:roles, "Must have at least one role")
     end
   end
 end
