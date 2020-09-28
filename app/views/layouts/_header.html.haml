@@ -5,7 +5,7 @@
 
   #navbarSupportedContent.collapse.navbar-collapse
     - if current_user
-      %ul.navbar-nav.mr-auto
+      %ul.navbar.navbar-nav
         %li.nav-item
           = link_to root_path, class: "nav-link" do
             .fa.fa-home
@@ -26,11 +26,7 @@
             .fa.fa-user
             Users
 
-        %li.nav-item
-          = link_to home_activity_path, class: "nav-link" do
-            .fa.fa-bell
-            Activity
-
+      %ul.navbar.navbar-nav
         = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
           .input-group
             = f.search_field :title_or_short_description_cont, class: "form-control-sm"
@@ -41,6 +37,11 @@
         -# = form_tag(courses_path, method: :get, class: "form-inline my-2 my-lg-0") do
         -#   = text_field_tag :title, params[:title], autocomplete: "off", placeholder: "Search", class: "form-control mr-sm-2"
         -#   %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} Search
+
+        %li.nav-item
+          = link_to home_activity_path, class: "nav-link" do
+            .fa.fa-bell
+            Activity
 
         %li.nav-item.dropdown
           %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}= current_user.email

@@ -1,4 +1,9 @@
-.card-columns.mb-4
+%h1
+  Users
+  .badge.badge-info
+    = @users.count
+
+.card-columns.pt-4.mb-4
   - @users.each do |user|
     = render "users/user", user: user
 

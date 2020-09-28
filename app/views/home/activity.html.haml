@@ -1,17 +1,21 @@
-%h1 Activity
+%h1
+  Activity
+  .badge.badge-info
+    = @activities.count
 
-- @activities.each do |a|
-  .row
-  %strong Id:
-  = a.id
-  %strong Type:
-  = a.trackable_type
-  %strong Type id:
-  = a.trackable_id
-  /= link_to activity.trackable, activity.trackable
-  %strong Action:
-  = a.key
-  %strong Params:
-  = a.parameters
-  %strong Owner:
-  = a.owner.email
+%ul.list-group.pt-4
+  - @activities.each do |a|
+    %li.list-group-item
+      %strong Id:
+      = a.id
+      %strong Resource:
+      = a.trackable_type
+      = link_to a.trackable.title, a.trackable
+      %strong Resource id:
+      = a.trackable_id
+      %strong Action:
+      = a.key
+      %strong Params:
+      = a.parameters
+      %strong Owner:
+      = a.owner.email

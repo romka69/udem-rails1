@@ -2,9 +2,10 @@
   .display-4.pb-4
     What do you want learn today?
 
-  = form_tag(courses_path, method: :get, class: "form-inline my-2 my-lg-0") do
-    = text_field_tag :title, params[:title], autocomplete: "off", placeholder: "Search", class: "form-control mr-sm-2"
-    %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} Search
+  - if current_user
+    = search_form_for @ransack_courses, as: :courses_search, url: courses_path, class: "form-inline my-2 my-lg-0" do |f|
+      = f.search_field :title_or_short_description_cont, placeholder: "Search", class: "form-control mr-sm-2"
+      %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} Search
 
 .card-group.pb-3
   .card.card-body
