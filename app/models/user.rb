@@ -19,6 +19,10 @@ class User < ApplicationRecord
     self.email.split(/@/).first
   end
 
+  def online?
+    updated_at > 2.minutes.ago
+  end
+
   private
 
   def assign_default_role
