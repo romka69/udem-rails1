@@ -6,4 +6,14 @@
     %li.breadcrumb-item.active{"aria-current" => "page"}
       = @course.title
 
-=render "courses/course", course: @course
+.row
+  .col-lg-6
+    = render "courses/course", course: @course
+  .col-lg-6
+    %h5.py-3 Lessons:
+
+    - if @lessons
+      - @lessons.each do |lesson|
+        = render "lessons/lesson", lesson: lesson
+    - else
+      Not yet lessons

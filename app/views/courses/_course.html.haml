@@ -11,6 +11,10 @@
       = number_to_currency(course.price, locale: :en, precision: 0, delimiter: " ")
 
   .card-footer
+    .fa.fa-book
+    = course.lessons.count
+
+  .card-footer
     .row
       .col-6
         .fa.fa-globe-africa
@@ -30,9 +34,10 @@
           .fa.fa-chalkboard-teacher
           = course.user.username
 
-  - if policy(course).edit?
-    .card-footer.text-right
-      / if can edit
-      = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-info"
-      / if can destroy
-      = link_to 'Destroy', course_path(course), method: :delete, data: { confirm: 'Are you sure?' }
+  - if current_user
+    - if policy(course).edit?
+      .card-footer.text-right
+        / if can edit
+        = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-info"
+        / if can destroy
+        = link_to 'Delete', course_path(course), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"
