@@ -6,7 +6,7 @@
   .form-inputs
     = f.input :title
     = f.input :content
-    = f.input :course_id, collection: Course.all
+    = f.input :course_id, input_html: {value: @lesson.course_id || params[:course_id]}
 
   .form-actions
     = f.button :submit

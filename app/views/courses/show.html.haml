@@ -10,10 +10,9 @@
   .col-lg-6
     = render "courses/course", course: @course
   .col-lg-6
-    %h5.py-3 Lessons:
+    %h5.py-2 Lessons:
+    = link_to "Add Lesson", new_lesson_path(course_id: @course.id)
 
     - if @lessons
       - @lessons.each do |lesson|
         = render "lessons/lesson", lesson: lesson
-    - else
-      Not yet lessons
