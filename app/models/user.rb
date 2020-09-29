@@ -6,6 +6,9 @@ class User < ApplicationRecord
          :trackable, :confirmable
   rolify
 
+  extend FriendlyId
+  friendly_id :email, use: :slugged
+
   has_many :courses
 
   validate :must_have_a_role, on: :update
