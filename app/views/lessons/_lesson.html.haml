@@ -1,12 +1,14 @@
 .card.mt-2
   .card-header
     = link_to lesson.title, lesson_path(lesson)
-  .card-body
-    = lesson.content
-    %small
-      = lesson.course.title
-  .card-footer
-    .float-right
-      = link_to "Edit", edit_lesson_path(lesson), class: "btn btn-sm btn-info"
-      = link_to "Delete", lesson_path(lesson), method: :delete, data: { confirm: "You are sure?" },
-                                                                class: "btn btn-sm btn-danger"
+  - if policy(lesson).show?
+    .card-body
+      = lesson.content
+      %small
+        = lesson.course.title
+    - if policy(lesson).edit?
+      .card-footer
+        .float-right
+          = link_to "Edit", edit_lesson_path(lesson), class: "btn btn-sm btn-info"
+          = link_to "Delete", lesson_path(lesson), method: :delete, data: { confirm: "You are sure?" },
+                                                                    class: "btn btn-sm btn-danger"
