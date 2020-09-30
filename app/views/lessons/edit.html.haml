@@ -1,3 +1,17 @@
+%nav.mb-4{"aria-label" => "breadcrumb"}
+  %ol.breadcrumb.mb-0
+    %li.breadcrumb-item
+      = link_to "Courses", courses_path
+
+    %li.breadcrumb-item
+      = link_to @lesson.course.title, course_path(@lesson.course)
+
+    %li.breadcrumb-item
+      = link_to @lesson.title, course_lesson_path(@lesson.course, @lesson)
+
+    %li.breadcrumb-item.active{"aria-current" => "page"}
+      Edit lesson
+
 .card
   .card-header
     %h1 Editing lesson
@@ -7,4 +21,4 @@
 
   .card-footer
     = link_to 'Show lesson', course_lesson_path(@course, @lesson), class: "card-link"
-    = link_to 'Back to course', course_path(@lesson.course), class: "card-link"
+    = link_to 'All lessons', course_path(@lesson.course), class: "card-link"

@@ -9,8 +9,7 @@
     %li.breadcrumb-item.active{"aria-current" => "page"}
       = @lesson.title
 
-
 = render "lessons/lesson", lesson: @lesson
 
 %br
-= link_to 'Back', course_path(@course)
+= link_to 'Back to Course', course_path(@course)

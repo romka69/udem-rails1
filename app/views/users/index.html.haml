@@ -3,9 +3,9 @@
   .badge.badge-info
     = @users.count
 
-.card-columns.pt-4.mb-4
-  - @users.each do |user|
-    = render "users/user", user: user
+/.card-columns.pt-4.mb-4
+/  - @users.each do |user|
+/    = render "users/user", user: user
 
 .mb-2
   = search_form_for @q do |f|
@@ -25,14 +25,27 @@
       %th= "Last sign in at"
       %th= "Current sign in ip"
       %th= "Last sign in ip"
+      %th= "Confirmed email"
+      %th= "Roles"
   %tbody
     - @users.each do |user|
       %tr
         %td= user.id
-        %td= user.email
+        %td= link_to user.email, user_path(user)
         %td= user.created_at
         %td= user.sign_in_count
         %td= user.current_sign_in_at
         %td= user.last_sign_in_at
         %td= user.current_sign_in_ip
         %td= user.last_sign_in_ip
+        %td
+          - if user.confirmed_at.present?
+            .badge.badge-info Yes
+          - else
+            .badge.badge-info No
+        %td
+          - user.roles.each do |role|
+            .badge.badge-info
+              = role.name
+          - if policy(user).edit?
+            = link_to "Edit roles", edit_user_path(user), class: "btn btn-sm btn-warning mt-2"

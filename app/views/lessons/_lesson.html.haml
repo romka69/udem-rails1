@@ -1,11 +1,10 @@
 .card.mt-2
   .card-header
+    .far.fa-check-square
     = link_to lesson.title, course_lesson_path(@course, lesson)
   - if policy(lesson).show?
     .card-body
       = lesson.content
-      %small
-        = lesson.course.title
     - if policy(lesson).edit?
       .card-footer
         .float-right

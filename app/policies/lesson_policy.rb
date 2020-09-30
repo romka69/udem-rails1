@@ -18,14 +18,14 @@ class LessonPolicy < ApplicationPolicy
   end
 
   def edit?
-    @record.course.user == @user
+    @user.has_role?(:admin) || @record.course.user == @user
   end
 
   def update?
-    @record.course.user == @user
+    @user.has_role?(:admin) || @record.course.user == @user
   end
 
   def destroy?
-    @record.course.user == @user
+    @user.has_role?(:admin) || @record.course.user == @user
   end
 end
