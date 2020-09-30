@@ -1,5 +1,9 @@
-%h1 New lesson
+.card
+  .card-header
+    %h1 New lesson
 
-= render 'form'
+  .card-body
+    = render 'form'
 
+%br
 = link_to 'Back', course_path(@course)
