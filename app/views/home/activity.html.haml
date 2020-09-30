@@ -18,4 +18,5 @@
       %strong Params:
       = a.parameters
       %strong Owner:
-      = a.owner.email
+      - if a.owner
+        = a.owner.email

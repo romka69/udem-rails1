@@ -17,7 +17,9 @@ class Course < ApplicationRecord
   has_rich_text :description
   friendly_id :title, use: :slugged
   # friendly_id :generated_slug, use: :slugged
-  tracked owner: Proc.new{ |controller, model| controller.current_user }
+  #
+  # nil for created data from seeds, in production dont need
+  tracked owner: Proc.new{ |controller, model| controller ? controller.current_user : nil }
 
   def self.languages
     LANGUAGES.map { |lang| [lang, lang] }
