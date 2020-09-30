@@ -11,7 +11,7 @@
     = render "courses/course", course: @course
   .col-lg-6
     %h5.py-2 Lessons:
-    = link_to "Add Lesson", new_lesson_path(course_id: @course.id)
+    = link_to "Add Lesson", new_course_lesson_path(@course)
 
     - if @lessons
       - @lessons.each do |lesson|
