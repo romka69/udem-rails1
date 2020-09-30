@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
 
   include PublicActivity::StoreController # save current_user using activity gem
 
+  include Pagy::Backend
+
   def set_global_variables
     @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
   end

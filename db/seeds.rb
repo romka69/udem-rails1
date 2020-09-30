@@ -11,7 +11,9 @@ user_student.skip_confirmation!
 user_student.save!
 user_student.remove_role(:teacher)
 
-10.times do
+PublicActivity.enabled = false
+
+30.times do
   Course.create!([{
                       title: Faker::Educator.course_name,
                       description: Faker::TvShows::GameOfThrones.quote,
@@ -22,3 +24,5 @@ user_student.remove_role(:teacher)
                       price: Faker::Number.between(from: 1000, to: 20000)
                   }])
 end
+
+PublicActivity.enabled = true
