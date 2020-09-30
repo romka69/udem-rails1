@@ -23,6 +23,7 @@ gem 'ransack'
 gem 'public_activity'
 gem "rolify"
 gem "pundit"
+gem 'exception_notification'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
