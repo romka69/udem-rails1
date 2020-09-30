@@ -5,9 +5,12 @@
 
   .card-body
     = simple_form_for @user do |f|
-      = f.collection_check_boxes :role_ids, Role.all, :id, :name
+      .form-check
+        = f.collection_check_boxes :role_ids, Role.all, :id, :name, item_wrapper_class: "d-block" do |c|
+          = c.check_box(class: "form-check-input")
+          = c.label(class: "form-check-label")
       = f.error :roles, class: "text-danger"
       %hr
       = f.button :submit, class: "btn btn-success"
   .card-footer
-    = link_to "Cancel", users_path, class: "btn btn-danger"
+    = link_to "Cancel", users_path, class: "card-link"

@@ -5,5 +5,5 @@
   .card-body
     = render 'form'
 
-%br
-= link_to 'Back', course_path(@course)
+  .card-footer
+    = link_to 'Back to course', course_path(@course), class: "card-link"
