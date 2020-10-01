@@ -22,7 +22,8 @@
 
   .card-body
     = form_tag course_enrollments_path(@course) do
-      = submit_tag "Pay #{@course.price}", class: "btn btn-lg btn-success"
+      = submit_tag "Pay #{number_to_currency(@course.price, locale: :en, precision: 0, delimiter: " ")}",
+                   class: "btn btn-lg btn-success"
 
   .card-footer
     = link_to 'Back to course', course_path(@course), class: "card-link"
