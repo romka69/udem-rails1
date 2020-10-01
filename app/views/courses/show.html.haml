@@ -7,10 +7,11 @@
       = @course.title
 
 .row
-  .col-lg-6
+  .col-lg-6.mb-3
     = render "courses/course", course: @course
   .col-lg-6
-    = link_to "Add Lesson", new_course_lesson_path(@course), class: "mt-2 btn btn-primary btn-sm text-center btn-block"
+    - if policy(@course).create?
+      = link_to "Add Lesson", new_course_lesson_path(@course), class: "btn btn-primary btn-sm text-center btn-block"
 
     - if @lessons
       - @lessons.each do |lesson|
