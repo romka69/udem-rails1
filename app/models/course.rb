@@ -29,6 +29,10 @@ class Course < ApplicationRecord
     LEVELS.map { |level| [level, level] }
   end
 
+  def bought(user)
+    self.enrollments.where(user_id: [user.id], course_id: [self.id].empty?)
+  end
+
   # def generated_slug
   #   require "securerandom"
   #   @random_slug ||= persisted? ? friendly_id : SecureRandom.hex(4)
