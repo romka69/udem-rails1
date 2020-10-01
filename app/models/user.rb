@@ -10,6 +10,7 @@ class User < ApplicationRecord
   friendly_id :email, use: :slugged
 
   has_many :courses
+  has_many :enrollments
 
   validate :must_have_a_role, on: :update
 

@@ -26,6 +26,12 @@
             .fa.fa-user
             Users
 
+        %li.nav-item
+          = link_to enrollments_path, class: "nav-link" do
+            .fa.fa-lock-open
+            Enrollments
+
+
       %ul.navbar.navbar-nav
         = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
           .input-group

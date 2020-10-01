@@ -19,41 +19,42 @@
     = link_to users_path, class: "btn btn-sm" do
       .fa.fa-sync
 
-%table.table.table-bordered
-  %thead
-    %tr
-      %th id
-      %th= sort_link(@q, :email)
-      %th= sort_link(@q, :created_at)
-      %th= "Sign in count"
-      %th= "Current sign in at"
-      %th= "Last sign in at"
-      %th= "Current sign in ip"
-      %th= "Last sign in ip"
-      %th= "Confirmed email"
-      %th= "Roles"
-  %tbody
-    - @users.each do |user|
+.table-responsive
+  %table.table.table-bordered.table-striped.table-sm
+    %thead
       %tr
-        %td= user.id
-        %td
-          - if user.online?
-            .text-success.fa.fa-circle
-          = link_to user.email, user_path(user)
-        %td= user.created_at
-        %td= user.sign_in_count
-        %td= user.current_sign_in_at
-        %td= user.last_sign_in_at
-        %td= user.current_sign_in_ip
-        %td= user.last_sign_in_ip
-        %td
-          - if user.confirmed_at.present?
-            .badge.badge-info Yes
-          - else
-            .badge.badge-info No
-        %td
-          - user.roles.each do |role|
-            .badge.badge-info
-              = role.name
-          - if policy(user).edit?
-            = link_to "Edit roles", edit_user_path(user), class: "btn btn-sm btn-warning mt-2"
+        %th id
+        %th= sort_link(@q, :email)
+        %th= sort_link(@q, :created_at)
+        %th= "Sign in count"
+        %th= "Current sign in at"
+        %th= "Last sign in at"
+        %th= "Current sign in ip"
+        %th= "Last sign in ip"
+        %th= "Confirmed email"
+        %th= "Roles"
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user.id
+          %td
+            - if user.online?
+              .text-success.fa.fa-circle
+            = link_to user.email, user_path(user)
+          %td= user.created_at
+          %td= user.sign_in_count
+          %td= user.current_sign_in_at
+          %td= user.last_sign_in_at
+          %td= user.current_sign_in_ip
+          %td= user.last_sign_in_ip
+          %td
+            - if user.confirmed_at.present?
+              .badge.badge-info Yes
+            - else
+              .badge.badge-info No
+          %td
+            - user.roles.each do |role|
+              .badge.badge-info.d-block.mb-2
+                = role.name
+            - if policy(user).edit?
+              = link_to "Edit roles", edit_user_path(user), class: "d-block btn btn-sm btn-warning"
