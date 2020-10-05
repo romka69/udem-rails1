@@ -1,0 +1,9 @@
+%li.nav-item.dropdown
+  %a#studentDropdown.nav-link.dropdown-toggle{ "aria-expanded" => "false", "aria-haspopup" => "true",
+                                               "data-toggle" => "dropdown", :href => "#", :role => "button" }
+    .fa.fa-user-graduate
+    Learn
+  .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "studentDropdown"}
+  -#  = link_to new_course_path, class: "nav-link" do
+  -#    .fa.fa-plus
+  -#    New course

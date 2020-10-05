@@ -1,0 +1,9 @@
+%li.nav-item.dropdown
+  %a#teacherDropdown.nav-link.dropdown-toggle{ "aria-expanded" => "false", "aria-haspopup" => "true",
+                                               "data-toggle" => "dropdown", :href => "#", :role => "button" }
+    .fa.fa-chalkboard-teacher
+    Teacher
+  .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "teacherDropdown"}
+    = link_to new_course_path, class: "dropdown-item" do
+      .fa.fa-plus
+      New course
