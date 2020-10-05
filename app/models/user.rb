@@ -25,7 +25,7 @@ class User < ApplicationRecord
   end
 
   def buy_course(course)
-    self.enrollments.create(course: course, price: course.price)
+    self.enrollments.create!(course: course, price: course.price)
   end
 
   private

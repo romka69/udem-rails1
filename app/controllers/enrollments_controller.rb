@@ -6,6 +6,7 @@ class EnrollmentsController < ApplicationController
     # @enrollments = Enrollment.all
     # @pagy, @enrollments = pagy(Enrollment.all)
 
+    @ransack_path = enrollments_path
     @q = Enrollment.ransack(params[:q])
     @q.sorts = ['created_at desc']
 
@@ -59,7 +60,16 @@ class EnrollmentsController < ApplicationController
     end
   end
 
+  def my_students
+    @ransack_path = my_students_enrollments_path
+    @q = Enrollment.joins(:course).where(courses: { user: current_user }).ransack(params[:q])
+
+    @pagy, @enrollments = pagy(@q.result.includes(:user))
+    render "index"
+  end
+
   private
+
     def set_enrollment
       @enrollment = Enrollment.friendly.find(params[:id])
     end

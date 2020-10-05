@@ -9,14 +9,14 @@
     = Enrollment.count
 
 .mb-2.pt-4
-  = search_form_for @q do |f|
+  = search_form_for @q, url: @ransack_path do |f|
     = f.search_field :review_cont, placeholder: "by review"
     = f.search_field :rating_eq, placeholder: "by rating"
     = f.search_field :user_email_cont, placeholder: "by email"
     = f.search_field :course_title_cont, placeholder: "by course"
     = f.search_field :price_eq, placeholder: "by price"
     = f.submit
-    = link_to enrollments_path, class: "btn btn-sm" do
+    = link_to @ransack_path, class: "btn btn-sm" do
       .fa.fa-sync
 
 .table-responsive
