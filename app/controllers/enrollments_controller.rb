@@ -3,9 +3,13 @@ class EnrollmentsController < ApplicationController
   before_action :set_course, only: %i[new create]
 
   def index
-    #@enrollments = Enrollment.all
+    # @enrollments = Enrollment.all
+    # @pagy, @enrollments = pagy(Enrollment.all)
 
-    @pagy, @enrollments = pagy(Enrollment.all)
+    @q = Enrollment.ransack(params[:q])
+    @q.sorts = ['created_at desc']
+
+    @pagy, @enrollments = pagy(@q.result.includes(:user))
 
     authorize @enrollments
   end
