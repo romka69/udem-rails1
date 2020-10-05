@@ -17,11 +17,11 @@
 
 .card
   .card-header
-    %h1 Editing enrollment
+    %h1 Add a Review
 
   .card-body
     = render 'form'
 
   .card-footer
     = link_to 'Show enrollment', @enrollment, class: "card-link"
-    = link_to 'All enrollments', enrollments_path, class: "card-link"
+    = link_to 'Back to course', course_path(@enrollment.course), class: "card-link"

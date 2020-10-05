@@ -16,7 +16,7 @@
     = render "courses/course", course: @course
   .col-lg-6
     - if policy(@course).edit?
-      = link_to "Add Lesson", new_course_lesson_path(@course), class: "btn btn-primary btn-sm text-center btn-block"
+      = link_to "Add Lesson", new_course_lesson_path(@course), class: "btn btn-primary btn-sm text-center btn-block mb-4"
 
     - if @lessons
       - @lessons.each do |lesson|

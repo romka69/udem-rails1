@@ -12,11 +12,14 @@
   %table.table.table-bordered.table-striped.table-sm
     %thead
       %tr
-        %th Course
+        %th ID
         %th User
+        %th Bought
+        %th Course
+        %th Price
+        %th Reviewed on
         %th Rating
         %th Review
-        %th Price
         %th
         %th
         %th
@@ -24,11 +27,16 @@
     %tbody
       - @enrollments.each do |enrollment|
         %tr
-          %td= enrollment.course.title
-          %td= enrollment.user.email
-          %td= enrollment.rating
-          %td= enrollment.review
+          %td= enrollment.id
+          %td= link_to enrollment.user.email, user_path(enrollment.user)
+          %td= enrollment.created_at.strftime("%e %B %Y, %H:%M")
+          %td= link_to enrollment.course.title, course_path(enrollment.course)
           %td= number_to_currency(enrollment.price, locale: :en, precision: 0, delimiter: " ")
-          %td= link_to 'Show', enrollment
-          %td= link_to 'Edit', edit_enrollment_path(enrollment)
-          %td= link_to 'Destroy', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
+          %td
+            - if enrollment.rating.present?
+              = enrollment.updated_at.strftime("%e %B %Y, %H:%M")
+          %td= enrollment.rating
+          %td= truncate(enrollment.review, length: 7)
+          %td= link_to 'See Review', enrollment
+          %td= link_to 'Add Review', edit_enrollment_path(enrollment)
+          %td= link_to 'Delete Enrollments', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
