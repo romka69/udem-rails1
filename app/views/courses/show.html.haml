@@ -15,7 +15,7 @@
   .col-lg-6.mb-3
     = render "courses/course", course: @course
   .col-lg-6
-    - if policy(@course).create?
+    - if policy(@course).edit?
       = link_to "Add Lesson", new_course_lesson_path(@course), class: "btn btn-primary btn-sm text-center btn-block"
 
     - if @lessons
