@@ -29,8 +29,8 @@ class Course < ApplicationRecord
     LEVELS.map { |level| [level, level] }
   end
 
-  def bought(user)
-    self.enrollments.where(user_id: [user.id], course_id: [self.id]).empty?
+  def is_bought?(user)
+    self.enrollments.where(user_id: [user.id], course_id: [self.id]).present?
   end
 
   # def generated_slug

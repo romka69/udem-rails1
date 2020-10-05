@@ -9,7 +9,8 @@
   .card-footer
     .text-center
       = enrollment_button(course)
-      /= number_to_currency(course.price, locale: :en, precision: 0, delimiter: " ")
+      .row
+      != review_button(course)
 
   .card-footer
     .fa.fa-tasks
