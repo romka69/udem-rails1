@@ -27,11 +27,13 @@
         %th= sort_link(@q, :email)
         %th= sort_link(@q, :created_at)
         %th= "Sign in count"
-        %th= "Current sign in at"
-        %th= "Last sign in at"
-        %th= "Current sign in ip"
-        %th= "Last sign in ip"
-        %th= "Confirmed email"
+        %th= "Current sign"
+        %th= "Last sign"
+        %th= "Current ip"
+        %th= "Last ip"
+        %th= "Courses"
+        %th= "Enrollments"
+        %th= "Confirmed"
         %th= "Roles"
     %tbody
       - @users.each do |user|
@@ -47,6 +49,8 @@
           %td= user.last_sign_in_at.strftime("%e %B %Y, %H:%M")
           %td= user.current_sign_in_ip
           %td= user.last_sign_in_ip
+          %td= user.courses_count
+          %td= user.enrollments_count
           %td
             - if user.confirmed_at.present?
               .badge.badge-info Yes

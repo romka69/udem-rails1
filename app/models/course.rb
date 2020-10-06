@@ -2,7 +2,7 @@ class Course < ApplicationRecord
   include PublicActivity::Model
   extend FriendlyId
 
-  belongs_to :user
+  belongs_to :user, counter_cache: true
 
   has_many :lessons, dependent: :destroy
   has_many :enrollments

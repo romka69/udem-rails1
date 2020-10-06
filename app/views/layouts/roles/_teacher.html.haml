@@ -12,7 +12,7 @@
       .fa.fa-graduation-cap
       My courses
       .badge.badge-info
-        = current_user.courses.count
+        = current_user.courses_count
 
     = link_to my_students_enrollments_path, class: "dropdown-item" do
       .fa.fa-user-graduate
