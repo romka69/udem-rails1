@@ -8,6 +8,14 @@ class Enrollment < ApplicationRecord
   validates_uniqueness_of :course_id, scope: :user_id
   validate :cant_subscribe_to_own_course
 
+  after_save do
+    course.update_rating unless rating.nil? || rating.zero?
+  end
+
+  after_destroy do
+    course.update_rating
+  end
+
   scope :pending_review, -> { where(rating: [0, nil, ""], review: [0, nil, ""]) }
 
   extend FriendlyId
