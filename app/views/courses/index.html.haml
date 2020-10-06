@@ -1,15 +1,10 @@
 - content_for :title do
-  All Courses
+  = set_title_index
   \|
   Udem
 
 %h1
-  Courses
-  .badge.badge-info
-    - if current_page?(action: 'index')
-      = Course.count
-    - else
-      = @courses.count
+  != set_h1_index(Course, @courses)
 
 .row.pt-4
   .col-lg-2.pb-4

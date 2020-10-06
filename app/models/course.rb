@@ -8,6 +8,7 @@ class Course < ApplicationRecord
   has_many :enrollments
 
   validates :title, :language, :level, presence: true
+  validates :title, uniqueness: true
   validates :short_description, presence: true, length: { minimum: 5, maximum: 300 }
   validates :description, presence: true, length: { minimum: 5 }
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }

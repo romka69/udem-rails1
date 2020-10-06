@@ -1,12 +1,10 @@
 - content_for :title do
-  Enrollments
+  = set_title_index
   \|
   Udem
 
 %h1
-  Enrollments
-  .badge.badge-info
-    = Enrollment.count
+  != set_h1_index(Enrollment, @enrollments)
 
 .mb-2.pt-4
   = search_form_for @q, url: @ransack_path do |f|
