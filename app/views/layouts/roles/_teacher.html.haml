@@ -11,7 +11,11 @@
     = link_to created_courses_path, class: "dropdown-item" do
       .fa.fa-graduation-cap
       My courses
+      .badge.badge-info
+        = current_user.courses.count
 
     = link_to my_students_enrollments_path, class: "dropdown-item" do
       .fa.fa-user-graduate
       My students
+      .badge.badge-info
+        = Enrollment.joins(:course).where(courses: { user: current_user }).count

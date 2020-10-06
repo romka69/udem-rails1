@@ -17,7 +17,7 @@
             Courses
 
         = search_form_for @ransack_courses, as: :courses_search, url: courses_path, class: "form-inline my-2 my-lg-0" do |f|
-          .input-group.input-group-sm
+          .input-group.input-group-sm.ml-lg-4
             = f.search_field :title_or_short_description_cont, class: "form-control"
             %span.input-group-append
               %button.btn.btn-outline-secondary.btn-sm{type: "submit"}
