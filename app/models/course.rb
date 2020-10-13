@@ -13,6 +13,10 @@ class Course < ApplicationRecord
   validates :description, presence: true, length: { minimum: 5 }
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
+  scope :top_rated, -> { order(average_rating: :desc, created_at: :desc).limit(3) }
+  scope :popular, -> { order(enrollments_count: :desc, created_at: :desc).limit(3) }
+  scope :latest, -> { order(created_at: :desc).limit(3) }
+
   LANGUAGES = %i(English Russian)
   LEVELS = %i(Beginner Intermediate Advanced)
 
