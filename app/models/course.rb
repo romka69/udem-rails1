@@ -6,6 +6,7 @@ class Course < ApplicationRecord
 
   has_many :lessons, dependent: :destroy
   has_many :enrollments
+  has_many :user_lessons, through: :lessons
 
   validates :title, :language, :level, presence: true
   validates :title, uniqueness: true
@@ -43,6 +44,12 @@ class Course < ApplicationRecord
       update_column :average_rating, (self.enrollments.average(:rating).round(2).to_f)
     else
       update_column :average_rating, (0)
+    end
+  end
+
+  def progress(user)
+    unless self.lessons_count.zero?
+      (user_lessons.where(user: user).count / self.lessons_count.to_f * 100).round
     end
   end
 

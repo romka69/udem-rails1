@@ -4,7 +4,7 @@ module CoursesHelper
       if course.user == current_user
         link_to "You created this course. View analytics", course_path(course)
       elsif course.enrollments.where(user: current_user).any?
-        link_to "You bough this course. Keep learning", course_path(course)
+        "Learning progress: #{link_to course.progress(current_user), course_path(course)} %"
       elsif course.price > 0
         link_to number_to_currency(course.price, locale: :en, precision: 0, delimiter: " "),
                 new_course_enrollment_path(course), class: "btn btn-md btn-success"
@@ -22,7 +22,7 @@ module CoursesHelper
     if current_user
       if user_course.any?
         if user_course.pending_review.any?
-          "<hr> #{link_to "Add a Review", edit_enrollment_path(user_course.first)}"
+          "<hr> #{link_to 'Add a Review', edit_enrollment_path(user_course.first)}"
         else
           "<hr> You have left a #{link_to 'Review', enrollment_path(user_course.first)}"
         end
