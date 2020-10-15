@@ -1,6 +1,8 @@
 class Lesson < ApplicationRecord
   belongs_to :course, counter_cache: true
 
+  has_many :user_lessons
+
   validates :title, :content, :course_id, presence: true
 
   extend FriendlyId
@@ -10,4 +12,8 @@ class Lesson < ApplicationRecord
   tracked owner: Proc.new{ |controller, model| controller.current_user }
 
   has_rich_text :content
+
+  def viewed?(user)
+    self.user_lessons.where(user: user).present?
+  end
 end

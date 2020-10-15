@@ -1,6 +1,9 @@
 .card.mb-2
   .card-header
-    .far.fa-check-square
+    - if lesson.viewed?(current_user)
+      .text-success.far.fa-check-square
+    - else
+      .text-secondary.far.fa-square
     = link_to lesson.title, course_lesson_path(@course, lesson)
   - if policy(lesson).show?
     .card-body
