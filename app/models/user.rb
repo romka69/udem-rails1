@@ -9,9 +9,9 @@ class User < ApplicationRecord
   extend FriendlyId
   friendly_id :email, use: :slugged
 
-  has_many :courses
-  has_many :enrollments
-  has_many :user_lessons
+  has_many :courses, dependent: :nullify
+  has_many :enrollments, dependent: :nullify
+  has_many :user_lessons, dependent: :nullify
 
   validate :must_have_a_role, on: :update
 
