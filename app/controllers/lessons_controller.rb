@@ -5,6 +5,7 @@ class LessonsController < ApplicationController
   def show
     authorize @lesson
     current_user.view_lesson(@lesson)
+    @lessons = @course.lessons
   end
 
   def new

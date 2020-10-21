@@ -37,7 +37,7 @@
   .col-lg-8
     %h5.mb-3
       .fas.fa-tasks
-      = pluralize(@course.lessons_count, "lesson")
+      = pluralize(@course.lessons_count, "Lesson")
       - if @course.enrollments.where(user: current_user).any?
         .float-right
           .far.fa-flag
@@ -47,11 +47,12 @@
     - if @lessons
       %ul.list-group.mb-5
         - @lessons.each do |lesson|
-          = render "lessons/lesson_preview", lesson: lesson
+          %li.list-group-item
+            = render "lessons/lesson_preview", lesson: lesson
 
       %h5.mb-3
         .fa.fa-comment
-        = pluralize(@enrollments_with_reviews.count, "review")
+        = pluralize(@enrollments_with_reviews.count, "Review")
       - @enrollments_with_reviews.each do |enrollment|
         = render "enrollments/enrollment", enrollment: enrollment
         .pb-2

@@ -16,7 +16,28 @@
     %li.breadcrumb-item.active{"aria-current" => "page"}
       = @lesson.title
 
-= render "lessons/lesson", lesson: @lesson
+.row
+  .col-lg-8
+    = render "lessons/lesson", lesson: @lesson
+
+  .col-lg-4
+    .lesson-lessons-list-header.mb-2
+      .h5.d-inline
+        Lessons
+
+      .float-right
+        %small
+          completed:
+          = number_to_percentage(@course.progress(current_user), precision: 0)
+
+    %ul.list-group
+      - @lessons.each do |lesson|
+        - if lesson == @lesson
+          %li.list-group-item.list-group-item-success
+            = render "lessons/lesson_preview", lesson: lesson
+        - else
+          %li.list-group-item
+            = render "lessons/lesson_preview", lesson: lesson
 
 %br
-= link_to 'Back to Course', course_path(@course)
+= link_to 'Back to Course', course_path(@course), class: "btn btn-outline-primary"
