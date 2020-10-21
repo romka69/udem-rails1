@@ -16,4 +16,10 @@ class ChartsController < ApplicationController
       render json: Enrollment.joins(:course).group(:"courses.title").count
     end
   end
+
+  def money_makers
+    if current_user.has_role?(:admin)
+      render json: Enrollment.joins(:course).group(:"courses.title").sum(:price)
+    end
+  end
 end
