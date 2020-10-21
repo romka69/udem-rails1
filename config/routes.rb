@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   root "home#index"
 
+  get "home/index"
+  get "activity", to: "home#activity"
+  get "analytics", to: "home#analytics"
+
   resources :courses do
     get :purchased, on: :collection
     get :pending_review, on: :collection
@@ -16,7 +20,4 @@ Rails.application.routes.draw do
   resources :enrollments, except: %i[new create] do
     get :my_students, on: :collection
   end
-
-  get "home/index"
-  get "activity", to: "home#activity"
 end

@@ -1,0 +1,23 @@
+- content_for :title do
+  Analytics
+  \|
+  Udem
+
+%h1
+  Analytics
+
+.pt-4
+  .chart.mb-5
+    %h3
+      Users created per day
+    = line_chart @users.group_by_day(:created_at).count
+
+  .chart.mb-5
+    %h3
+      Enrollments created per day
+    = line_chart @enrollments.group_by_day(:created_at).count
+
+  .chart.mb-5
+    %h3
+      Popular courses
+    = bar_chart @enrollments.joins(:course).group(:"courses.title").count
