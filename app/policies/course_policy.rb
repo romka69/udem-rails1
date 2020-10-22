@@ -5,6 +5,13 @@ class CoursePolicy < ApplicationPolicy
     end
   end
 
+  def show?
+    @record.published && @record.approved ||
+    @user.has_role?(:admin) ||
+    @record.user == @user ||
+    @record.is_bought?(@user)
+  end
+
   def new?
     @user.has_role?(:teacher)
   end
