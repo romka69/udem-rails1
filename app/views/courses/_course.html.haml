@@ -48,9 +48,33 @@
           = link_to course.user.username, user_path(course.user)
 
   - if current_user
+    - if policy(course).destroy?
+      .card-footer
+        - if course.published?
+          .badge.badge-success
+            Published
+        - else
+          .badge.badge-secondary
+            Unpublished
+
+        - if course.approved?
+          .badge.badge-success
+            Approved
+        - else
+          .badge.badge-secondary
+            Unapproved
+
     - if policy(course).edit?
       .card-footer.text-right
         - if policy(course).owner?
           = link_to "Add Lesson", new_course_lesson_path(course), class: "btn btn-sm btn-primary"
         = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-info"
-        = link_to 'Delete', course_path(course), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"
+        = link_to 'Delete', course_path(course), method: :delete, data: { confirm: 'Are you sure?' },
+                            class: "btn btn-sm btn-danger"
+
+    - if policy(course).approve?
+      .card-footer.text-right
+        - if course.approved?
+          = link_to "Unapprove", unapprove_course_path(course), method: :patch, class: "btn btn-info btn-sm"
+        - else
+          = link_to "Approve", approve_course_path(course), method: :patch, class: "btn btn-info btn-sm"

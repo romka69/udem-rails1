@@ -8,6 +8,8 @@ module ApplicationHelper
   end
 
   def set_h1_index(model, index_list)
+    model = model == Course ? model.published.approved : model
+
     return "
       #{controller_path.classify}s
       <div class='badge badge-info'>

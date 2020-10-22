@@ -1,19 +1,10 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: %i[show edit update destroy approve unapprove]
 
   def index
-    #if params[:title]
-    #  @courses = Course.where("title ILIKE ?", "%#{params[:title]}%")
-    #else
-      # @courses = Course.all
-      # @q = Course.ransack(params[:q])
-      # @courses = @q.result.includes(:user)
-    #end
-
     @ransack_path = courses_path
-    @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
+    @ransack_courses = Course.published.approved.ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
-
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
   end
 
@@ -106,6 +97,29 @@ class CoursesController < ApplicationController
     render "index"
   end
 
+  def approve
+    authorize @course, :approve?
+
+    @course.update_attribute(:approved, true)
+    redirect_to @course, notice: "Course approved and visible."
+  end
+
+  def unapprove
+    authorize @course, :approve?
+
+    @course.update_attribute(:approved, false)
+    redirect_to @course, notice: "Course unapproved and hidden."
+  end
+
+  def unapproved
+    @ransack_path = unapproved_courses_path
+    @ransack_courses = Course.unapproved
+                           .ransack(params[:courses_search], search_key: :courses_search)
+    @ransack_courses.sorts = ['created_at asc']
+
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    render "index"
+  end
 
   private
 
@@ -114,6 +128,7 @@ class CoursesController < ApplicationController
     end
 
     def course_params
-      params.require(:course).permit(:title, :description, :short_description, :price, :level, :language)
+      params.require(:course).permit(:title, :description, :short_description,
+                                     :price, :level, :language, :published)
     end
 end

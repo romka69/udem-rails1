@@ -8,9 +8,16 @@ Rails.application.routes.draw do
   get "analytics", to: "home#analytics"
 
   resources :courses do
-    get :purchased, on: :collection
-    get :pending_review, on: :collection
-    get :created, on: :collection
+    collection do
+      get :purchased
+      get :pending_review
+      get :created
+      get :unapproved
+    end
+    member do
+      patch :approve
+      patch :unapprove
+    end
     resources :lessons, except: %i[index]
     resources :enrollments, only: %i[new create]
   end
