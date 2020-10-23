@@ -11,7 +11,8 @@
 %ul.list-group.pt-4.mb-3
   - @activities.each do |a|
     %li.list-group-item
-      %strong Id:
+      != crud_label(a.key.split(".")[1])
+      %strong.ml-2 Id:
       = "#{a.id},"
       = a.created_at.strftime("%e %B %Y %H:%M")
       = "(#{time_ago_in_words(a.created_at)})"
@@ -37,7 +38,7 @@
       - if a.parameters.any?
         %br
         %strong Params:
-      = a.parameters
+        = a.parameters
 
       - if a.owner
         %br
