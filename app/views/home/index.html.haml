@@ -45,13 +45,14 @@
 
 %hr
 
-%h3
-  .fa.fa-user-graduate
-  Continue Learning
-.card-columns
-  - @purchased_courses.each do |course|
-    = render "courses/course", course: course
-%hr
+- if current_user
+  %h3
+    .fa.fa-user-graduate
+    Continue Learning
+  .card-columns
+    - @purchased_courses.each do |course|
+      = render "courses/course", course: course
+  %hr
 
 %h3
   .fas.fa-chart-line
