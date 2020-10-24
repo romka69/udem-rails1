@@ -1,3 +1,8 @@
+- content_for :title do
+  = @course.title
+  \|
+  Udem
+
 %nav.mb-4{"aria-label" => "breadcrumb"}
   %ol.breadcrumb.mb-0
     %li.breadcrumb-item
@@ -6,4 +11,48 @@
     %li.breadcrumb-item.active{"aria-current" => "page"}
       = @course.title
 
-=render "courses/course", course: @course
+.jumbotron
+  %h1
+    .fa.fa-graduation-cap
+    = @course.title
+  .pt-3
+    .fa.fa-clock
+    Updated:
+    = @course.updated_at.strftime("%e %B %Y")
+  .pt-3
+    %span
+      .fa.fa-globe-africa
+      = @course.language
+    %span.ml-4
+      .fa.fa-signal
+      = @course.level
+  .pt-4
+  = @course.description
+
+.row
+  .col-lg-4.mb-5
+    .sticky-top{:style => "top: 15px"}
+      = render "courses/course", course: @course
+
+  .col-lg-8
+    %h5.mb-3
+      .fas.fa-tasks
+      = pluralize(@course.lessons_count, "Lesson")
+      - if @course.enrollments.where(user: current_user).any?
+        .float-right
+          .far.fa-flag
+          Progress:
+          = number_to_percentage(@course.progress(current_user), precision: 0)
+
+    - if @lessons
+      %ul.list-group.mb-5
+        - @lessons.each do |lesson|
+          %li.list-group-item
+            = render "lessons/lesson_preview", lesson: lesson
+
+      %h5.mb-3
+        .fa.fa-comment
+        = pluralize(@enrollments_with_reviews.count, "Review")
+      - @enrollments_with_reviews.each do |enrollment|
+        = render "enrollments/enrollment", enrollment: enrollment
+        .pb-2

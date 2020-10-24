@@ -1,0 +1,18 @@
+- content_for :title do
+  Enrollment
+  = @enrollment
+  \|
+  Udem
+
+%nav.mb-4{"aria-label" => "breadcrumb"}
+  %ol.breadcrumb.mb-0
+    %li.breadcrumb-item
+      = link_to @enrollment.course.title, course_path(@enrollment.course)
+
+    %li.breadcrumb-item
+      Reviews
+
+    %li.breadcrumb-item.active{"aria-current" => "page"}
+      = @enrollment
+
+= render "enrollments/enrollment", enrollment: @enrollment

@@ -1,0 +1,27 @@
+- content_for :title do
+  = @course.title
+  \|
+  New lesson
+  \|
+  Udem
+
+%nav.mb-4{"aria-label" => "breadcrumb"}
+  %ol.breadcrumb.mb-0
+    %li.breadcrumb-item
+      = link_to "Courses", courses_path
+
+    %li.breadcrumb-item
+      = link_to @course.title, course_path(@course)
+
+    %li.breadcrumb-item.active{"aria-current" => "page"}
+      New lesson
+
+.card
+  .card-header
+    %h1 New lesson
+
+  .card-body
+    = render 'form'
+
+  .card-footer
+    = link_to 'Back to course', course_path(@course), class: "card-link"

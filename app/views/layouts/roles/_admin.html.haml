@@ -1,0 +1,27 @@
+%li.nav-item.dropdown
+  %a#adminDropdown.nav-link.dropdown-toggle{ "aria-expanded" => "false", "aria-haspopup" => "true",
+                                             "data-toggle" => "dropdown", :href => "#", :role => "button" }
+    .fa.fa-tools
+    Admin
+  .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "adminDropdown"}
+    = link_to unapproved_courses_path, class: "dropdown-item" do
+      .fa.fa-graduation-cap
+      Unapproved courses
+      .badge.badge-info
+        = Course.unapproved.count
+
+    = link_to users_path, class: "dropdown-item" do
+      .fa.fa-users
+      Users
+
+    = link_to enrollments_path, class: "dropdown-item" do
+      .fa.fa-lock-open
+      Enrollments
+
+    = link_to activity_path, class: "dropdown-item" do
+      .fa.fa-bell
+      Activity
+
+    = link_to analytics_path, class: "dropdown-item" do
+      .fas.fa-chart-pie
+      Analytics

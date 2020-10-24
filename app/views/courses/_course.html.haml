@@ -8,7 +8,24 @@
 
   .card-footer
     .text-center
-      = number_to_currency(course.price, locale: :en, precision: 0, delimiter: " ")
+      != enrollment_button(course)
+      .row
+      != review_button(course)
+
+  .card-footer
+    .row
+      .col-4
+        .text-left
+          .text-warning.fa.fa-star
+          = course.average_rating
+      .col-4
+        .text-center
+          .fas.fa-user-graduate
+          = course.enrollments_count
+      .col-4
+        .text-right
+          .fa.fa-tasks
+          = course.lessons_count
 
   .card-footer
     .row
@@ -24,15 +41,41 @@
     .row
       .col-6
         .far.fa-clock
-        = course.created_at.strftime("%d-%b-%y")
+        = course.created_at.strftime("%e %B %Y")
       .col-6
         .text-right
           .fa.fa-chalkboard-teacher
-          = course.user.username
+          = link_to course.user.username, user_path(course.user)
 
-  - if policy(course).edit?
-    .card-footer.text-right
-      / if can edit
-      = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-info"
-      / if can destroy
-      = link_to 'Destroy', course_path(course), method: :delete, data: { confirm: 'Are you sure?' }
+  - if current_user
+    - if policy(course).admin_or_owner?
+      .card-footer
+        - if course.published?
+          .badge.badge-success
+            Published
+        - else
+          .badge.badge-secondary
+            Unpublished
+
+        - if course.approved?
+          .badge.badge-success
+            Approved
+        - else
+          .badge.badge-secondary
+            Unapproved
+
+    - if policy(course).admin_or_owner?
+      .card-footer.text-right
+        = link_to "Add Lesson", new_course_lesson_path(course), class: "btn btn-sm btn-primary"
+        = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-warning"
+        - if policy(course).destroy?
+          = link_to 'Delete', course_path(course), method: :delete, data: { confirm: 'Are you sure?' },
+                              class: "btn btn-sm btn-danger"
+        = link_to "Analytics", analytics_course_path(course), class: "btn btn-sm btn-info"
+
+    - if policy(course).approve?
+      .card-footer.text-right
+        - if course.approved?
+          = link_to "Unapprove", unapprove_course_path(course), method: :patch, class: "btn btn-info btn-sm"
+        - else
+          = link_to "Approve", approve_course_path(course), method: :patch, class: "btn btn-info btn-sm"
