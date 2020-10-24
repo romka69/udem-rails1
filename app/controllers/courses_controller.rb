@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[show]
 
-  before_action :set_course, only: %i[show edit update destroy approve unapprove]
+  before_action :set_course, only: %i[show edit update destroy approve unapprove analytics]
 
   def index
     @ransack_path = courses_path
@@ -123,6 +123,10 @@ class CoursesController < ApplicationController
 
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
     render "index"
+  end
+
+  def analytics
+    authorize @course, :owner?
   end
 
   private

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get :unapproved
     end
     member do
+      get :analytics
       patch :approve
       patch :unapprove
     end
@@ -31,7 +32,7 @@ Rails.application.routes.draw do
   namespace :charts do
     get "users_per_day"
     get "enrollments_per_day"
-    get "course_popularity"
+    get "courses_popularity"
     get "money_makers"
   end
 end

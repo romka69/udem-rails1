@@ -11,7 +11,7 @@ class ChartsController < ApplicationController
     end
   end
 
-  def course_popularity
+  def courses_popularity
     if current_user.has_role?(:admin)
       render json: Enrollment.joins(:course).group(:"courses.title").count
     end

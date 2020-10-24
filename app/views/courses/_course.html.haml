@@ -48,7 +48,7 @@
           = link_to course.user.username, user_path(course.user)
 
   - if current_user
-    - if policy(course).destroy?
+    - if policy(course).admin_or_owner?
       .card-footer
         - if course.published?
           .badge.badge-success
@@ -64,13 +64,14 @@
           .badge.badge-secondary
             Unapproved
 
-    - if policy(course).edit?
+    - if policy(course).admin_or_owner?
       .card-footer.text-right
-        - if policy(course).owner?
-          = link_to "Add Lesson", new_course_lesson_path(course), class: "btn btn-sm btn-primary"
-        = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-info"
-        = link_to 'Delete', course_path(course), method: :delete, data: { confirm: 'Are you sure?' },
-                            class: "btn btn-sm btn-danger"
+        = link_to "Add Lesson", new_course_lesson_path(course), class: "btn btn-sm btn-primary"
+        = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-warning"
+        - if policy(course).destroy?
+          = link_to 'Delete', course_path(course), method: :delete, data: { confirm: 'Are you sure?' },
+                              class: "btn btn-sm btn-danger"
+        = link_to "Analytics", analytics_course_path(course), class: "btn btn-sm btn-info"
 
     - if policy(course).approve?
       .card-footer.text-right
