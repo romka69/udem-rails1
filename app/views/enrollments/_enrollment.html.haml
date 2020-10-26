@@ -14,7 +14,6 @@
     .fa.fa-comment
     = enrollment.review
 
-  - if current_user
+  - if current_user && policy(enrollment).edit?
     .card-footer
-      - if policy(enrollment).edit?
-        = link_to "Edit Review", edit_enrollment_path(enrollment), class: "card-link"
+      = link_to "Edit Review", edit_enrollment_path(enrollment), class: "card-link"
