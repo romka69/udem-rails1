@@ -11,9 +11,20 @@ class Lesson < ApplicationRecord
   include PublicActivity::Model
   tracked owner: Proc.new{ |controller, model| controller.current_user }
 
+  include RankedModel
+  ranks :row_order, with_same: :course_id
+
   has_rich_text :content
 
   def viewed?(user)
     self.user_lessons.where(user: user).present?
+  end
+
+  def prev_element
+    course.lessons.where("row_order < ?", row_order).order(:row_order).last
+  end
+
+  def next_element
+    course.lessons.where("row_order > ?", row_order).order(:row_order).first
   end
 end

@@ -5,12 +5,26 @@
     - else
       .text-secondary.far.fa-square
     = link_to lesson.title, course_lesson_path(@course, lesson)
+
   - if policy(lesson).show?
     .card-body
       = lesson.content
-    - if policy(lesson).owner?
-      .card-footer
-        .float-right
-          = link_to "Edit", edit_course_lesson_path(@course, lesson), class: "btn btn-sm btn-info"
+
+    .card-footer.d-flex.justify-content-between
+      .prev-lesson
+        - if lesson.prev_element.present?
+          = link_to course_lesson_path(@course, lesson.prev_element), class: "btn btn-sm btn-outline-success" do
+            .fa.fa-arrow-left
+            Previous
+
+      .editable.text-center
+        - if policy(lesson).owner?
+          = link_to "Edit", edit_course_lesson_path(@course, lesson), class: "btn btn-sm btn-warning"
           = link_to "Delete", course_lesson_path(@course, lesson), method: :delete, data: { confirm: "You are sure?" },
-                                                                    class: "btn btn-sm btn-danger"
+                              class: "btn btn-sm btn-danger"
+
+      .next-lesson
+        - if lesson.next_element.present?
+          = link_to course_lesson_path(@course, lesson.next_element), class: "btn btn-sm btn-outline-success" do
+            .fa.fa-arrow-right
+            Next

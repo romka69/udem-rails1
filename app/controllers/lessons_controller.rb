@@ -4,8 +4,9 @@ class LessonsController < ApplicationController
 
   def show
     authorize @lesson
+
     current_user.view_lesson(@lesson)
-    @lessons = @course.lessons
+    @lessons = @course.lessons.rank(:row_order)
   end
 
   def new
@@ -57,6 +58,15 @@ class LessonsController < ApplicationController
     end
   end
 
+  def sort
+    lesson = Lesson.friendly.find(params[:lesson_id])
+
+    authorize lesson, :edit?
+
+    lesson.update(lesson_params)
+    render body: nil
+  end
+
   private
 
     def set_course
@@ -68,6 +78,6 @@ class LessonsController < ApplicationController
     end
 
     def lesson_params
-      params.require(:lesson).permit(:title, :content)
+      params.require(:lesson).permit(:title, :content, :row_order_position)
     end
 end

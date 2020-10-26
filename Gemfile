@@ -27,6 +27,7 @@ gem 'exception_notification'
 gem 'pagy', '~> 3.5'
 gem "chartkick"
 gem 'groupdate'
+gem 'ranked-model'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
