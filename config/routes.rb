@@ -19,7 +19,9 @@ Rails.application.routes.draw do
       patch :approve
       patch :unapprove
     end
-    resources :lessons, except: %i[index]
+    resources :lessons, except: %i[index] do
+      put :sort
+    end
     resources :enrollments, only: %i[new create]
   end
 
