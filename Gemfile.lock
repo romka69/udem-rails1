@@ -37,6 +37,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_storage_validations (0.9.0)
+      rails (>= 5.2.0)
     activejob (6.0.3.3)
       activesupport (= 6.0.3.3)
       globalid (>= 0.3.6)
@@ -161,6 +163,7 @@ GEM
       mimemagic (~> 0.3.2)
     method_source (1.0.0)
     mimemagic (0.3.5)
+    mini_magick (4.10.1)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.2)
@@ -305,6 +308,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_storage_validations
   aws-sdk-s3
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.5.2)
@@ -322,6 +326,7 @@ DEPENDENCIES
   jquery-rails
   letter_opener
   listen (~> 3.2)
+  mini_magick (>= 4.9.5)
   pagy (~> 3.5)
   pg (>= 0.18, < 2.0)
   public_activity

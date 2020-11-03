@@ -15,6 +15,10 @@ class Course < ApplicationRecord
   validates :short_description, presence: true, length: { minimum: 5, maximum: 300 }
   validates :description, presence: true, length: { minimum: 5 }
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :logo, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+            size: { less_than: 500.kilobytes , message: 'Must be less 500 KB' },
+            dimension: { width: { min: 250, max: 500 },
+                         height: { min: 100, max: 500 }, message: 'Must be less 500 x 500 pixels' }
 
   scope :top_rated, -> { order(average_rating: :desc, created_at: :desc).limit(3) }
   scope :popular, -> { order(enrollments_count: :desc, created_at: :desc).limit(3) }

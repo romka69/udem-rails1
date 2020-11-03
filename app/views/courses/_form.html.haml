@@ -10,6 +10,7 @@
       - if @course.logo.attached?
         = image_tag @course.logo, class: "rounded d-block mb-1", width: "200px"
       = f.file_field :logo
+      %small= f.error :logo, class: "text-danger"
     = f.input :short_description
     = f.label :description
     .form-group
