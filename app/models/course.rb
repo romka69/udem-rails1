@@ -8,6 +8,8 @@ class Course < ApplicationRecord
   has_many :enrollments, dependent: :restrict_with_error
   has_many :user_lessons, through: :lessons
 
+  has_one_attached :logo
+
   validates :title, :language, :level, presence: true
   validates :title, uniqueness: true
   validates :short_description, presence: true, length: { minimum: 5, maximum: 300 }

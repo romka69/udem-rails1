@@ -12,7 +12,9 @@
       = @course.title
 
 .jumbotron
-  %h1
+  - if @course.logo.attached?
+    = image_tag @course.logo, class: "rounded d-block", width: "250px"
+  %h1.pt-4.mb-0
     .fa.fa-graduation-cap
     = @course.title
   .pt-3
