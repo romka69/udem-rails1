@@ -15,4 +15,5 @@ require("chart.js")
 require("jquery-ui-dist/jquery-ui")
 
 import "bootstrap"
-import "./course"
+import "../course"
+import "../richEditor"
