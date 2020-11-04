@@ -3,8 +3,13 @@ class Lesson < ApplicationRecord
 
   has_many :user_lessons, dependent: :destroy
 
+  has_one_attached :video
+
   validates :title, :content, :course_id, presence: true
   validates :title, length: { maximum: 50 }
+  validates :video, content_type: ['video/mp4'],
+            size: { less_than: 50.megabytes , message: 'Must be less 50 MB' }
+  validates_uniqueness_of :title, scope: :course_id
 
   extend FriendlyId
   friendly_id :title, use: :slugged

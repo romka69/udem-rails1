@@ -6,8 +6,14 @@
   .form-inputs
     = f.input :title
     = f.label :content
-    = f.rich_text_area :content
-    %small= f.error :content, class: "text-danger"
+    .form-group
+      = f.rich_text_area :content
+      %small= f.error :content, class: "text-danger"
+    = f.input :video
+    - if @lesson.video.attached?
+      %span.mt-0 @lesson.video.filename
+      = link_to "Delete video", delete_video_course_lesson_path(@course, @lesson),method: :delete,
+                data: { confirm: "Are you sure?" }
 
   .form-actions.mt-3
     = f.button :submit

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     end
     resources :lessons, except: %i[index] do
       put :sort
+      delete :delete_video, on: :member
     end
     resources :enrollments, only: %i[new create]
   end
