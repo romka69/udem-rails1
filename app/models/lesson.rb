@@ -4,6 +4,7 @@ class Lesson < ApplicationRecord
   has_many :user_lessons, dependent: :destroy
 
   validates :title, :content, :course_id, presence: true
+  validates :title, length: { maximum: 50 }
 
   extend FriendlyId
   friendly_id :title, use: :slugged

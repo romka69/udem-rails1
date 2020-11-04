@@ -10,10 +10,10 @@ class Course < ApplicationRecord
 
   has_one_attached :logo
 
-  validates :title, :language, :level, presence: true
+  validates :title, :language, :level, presence: true, length: { minimum: 5, maximum: 70 }
   validates :title, uniqueness: true
   validates :short_description, presence: true, length: { minimum: 5, maximum: 300 }
-  validates :description, presence: true, length: { minimum: 5 }
+  validates :description, presence: true, length: { minimum: 5, maximum: 1500 }
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :logo, presence: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
             size: { less_than: 500.kilobytes , message: 'Must be less 500 KB' },

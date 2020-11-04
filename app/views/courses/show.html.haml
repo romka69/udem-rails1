@@ -47,6 +47,7 @@
           = number_to_percentage(@course.progress(current_user), precision: 0)
 
     - if policy(@course).edit?
+      %small You can change sorting lessons. Just drag and drop in list.
       %ul.list-group.lesson-sortable.mb-5
         - @lessons.each do |lesson|
           = content_tag "div", id: "lesson-#{lesson.id}",
