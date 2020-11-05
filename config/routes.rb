@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     get :my_students, on: :collection
   end
 
+  resources :youtube, only: :show
+
   namespace :charts do
     get "users_per_day"
     get "enrollments_per_day"

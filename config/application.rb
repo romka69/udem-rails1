@@ -18,12 +18,13 @@ module Udem
 
     config.time_zone = 'Moscow'
 
-    config.after_initialize do
+    config.to_prepare do
       ActionText::ContentHelper.allowed_attributes.add 'style'
       ActionText::ContentHelper.allowed_attributes.add 'controls'
       ActionText::ContentHelper.allowed_tags.add 'video'
       ActionText::ContentHelper.allowed_tags.add 'audio'
       ActionText::ContentHelper.allowed_tags.add 'source'
+      ActionText::ContentHelper.allowed_tags.add 'iframe'
     end
   end
 end
