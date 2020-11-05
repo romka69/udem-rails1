@@ -27,13 +27,14 @@
         %th= sort_link(@q, :email)
         %th= sort_link(@q, :created_at)
         %th= "Sign in count"
+        %th= "Confirmed"
         %th= "Current sign"
         %th= "Last sign"
         %th= "Current ip"
         %th= "Last ip"
-        %th= "Courses"
-        %th= "Enrollments"
-        %th= "Confirmed"
+        %th= sort_link(@q, :courses_count)
+        %th= sort_link(@q, :enrollments_count)
+        %th= sort_link(@q, :user_lessons_count)
         %th= "Roles"
     %tbody
       - @users.each do |user|
@@ -45,17 +46,18 @@
             = link_to user.email, user_path(user)
           %td= user.created_at.strftime("%e %B %Y, %H:%M")
           %td= user.sign_in_count
+          %td
+            - if user.confirmed_at.present?
+              .badge.badge-info Yes
+            - else
+              .badge.badge-info No
           %td= user.current_sign_in_at.strftime("%e %B %Y, %H:%M")
           %td= user.last_sign_in_at.strftime("%e %B %Y, %H:%M")
           %td= user.current_sign_in_ip
           %td= user.last_sign_in_ip
           %td= user.courses_count
           %td= user.enrollments_count
-          %td
-            - if user.confirmed_at.present?
-              .badge.badge-info Yes
-            - else
-              .badge.badge-info No
+          %td= user.user_lessons_count
           %td
             - user.roles.each do |role|
               .badge.badge-info.d-block.mb-2

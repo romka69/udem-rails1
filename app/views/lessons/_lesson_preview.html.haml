@@ -17,9 +17,8 @@
     All:
     = lesson.user_lessons.map(&:impression).sum
     Uniq:
-    = lesson.user_lessons.count
+    = lesson.user_lessons_count
 
-  - if policy(lesson).edit?
     .float-right.ml-2
       = link_to edit_course_lesson_path(@course, lesson), class: "btn btn-sm btn-outline-info mr-1" do
         .fas.fa-pen
