@@ -12,7 +12,9 @@
       = @course.title
 
 .jumbotron
-  %h1
+  - if @course.logo.attached?
+    = image_tag @course.logo, class: "rounded d-block", width: "250px"
+  %h1.pt-4.mb-0
     .fa.fa-graduation-cap
     = @course.title
   .pt-3
@@ -45,6 +47,7 @@
           = number_to_percentage(@course.progress(current_user), precision: 0)
 
     - if policy(@course).edit?
+      %small You can change sorting lessons. Just drag and drop in list.
       %ul.list-group.lesson-sortable.mb-5
         - @lessons.each do |lesson|
           = content_tag "div", id: "lesson-#{lesson.id}",

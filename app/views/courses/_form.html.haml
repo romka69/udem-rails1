@@ -5,11 +5,18 @@
 
   .form-inputs
     = f.input :title
+    -# Layout for gem "active_storage_validations"
+    -#.form-group
+    -#  = f.label "Logo", class: "d-block"
+    -#  - if @course.logo.attached?
+    -#    = image_tag @course.logo, class: "rounded d-block mb-1", width: "200px"
+    -#  = f.file_field :logo
+    -#  %small= f.error :logo, class: "text-danger"
+    = f.input :logo
+    - if @course.logo.attached?
+      = image_tag @course.logo, class: "rounded d-block mt-0 mb-3", width: "200px"
     = f.input :short_description
-    = f.label :description
-    .form-group
-      = f.rich_text_area :description
-      %small= f.error :description, class: "text-danger"
+    = f.input :description, as: :rich_text_area
     = f.input :language, collection: Course.languages, include_blank: false
     = f.input :level, collection: Course.levels, include_blank: false
     = f.input :price

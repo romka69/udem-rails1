@@ -1,6 +1,6 @@
 class LessonsController < ApplicationController
-  before_action :set_course, only: %i[new create show edit update destroy]
-  before_action :set_lesson, only: %i[show edit update destroy]
+  before_action :set_course, only: %i[new create show edit update destroy delete_video]
+  before_action :set_lesson, only: %i[show edit update destroy delete_video]
 
   def show
     authorize @lesson
@@ -67,6 +67,13 @@ class LessonsController < ApplicationController
     render body: nil
   end
 
+  def delete_video
+    authorize @lesson, :edit?
+
+    @lesson.video.purge
+    redirect_to edit_course_lesson_path(@course, @lesson), notice: "Video deleted."
+  end
+
   private
 
     def set_course
@@ -78,6 +85,6 @@ class LessonsController < ApplicationController
     end
 
     def lesson_params
-      params.require(:lesson).permit(:title, :content, :row_order_position)
+      params.require(:lesson).permit(:title, :content, :row_order_position, :video, :video_thumbnail_img)
     end
 end

@@ -15,4 +15,9 @@ require("chart.js")
 require("jquery-ui-dist/jquery-ui")
 
 import "bootstrap"
-import "./course"
+import "../course"
+import "../richEditor"
+import videojs from "video.js"
+import "video.js/dist/video-js.css"
+import "../videoPlayer"
+import "../youtube"

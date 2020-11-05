@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     end
     resources :lessons, except: %i[index] do
       put :sort
+      delete :delete_video, on: :member
     end
     resources :enrollments, only: %i[new create]
   end
@@ -30,6 +31,8 @@ Rails.application.routes.draw do
   resources :enrollments, except: %i[new create] do
     get :my_students, on: :collection
   end
+
+  resources :youtube, only: :show
 
   namespace :charts do
     get "users_per_day"

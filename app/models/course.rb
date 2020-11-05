@@ -8,11 +8,23 @@ class Course < ApplicationRecord
   has_many :enrollments, dependent: :restrict_with_error
   has_many :user_lessons, through: :lessons
 
-  validates :title, :language, :level, presence: true
+  has_one_attached :logo
+
+  validates :title, :language, :level, presence: true, length: { minimum: 5, maximum: 70 }
   validates :title, uniqueness: true
   validates :short_description, presence: true, length: { minimum: 5, maximum: 300 }
-  validates :description, presence: true, length: { minimum: 5 }
+  validates :description, presence: true, length: { minimum: 5, maximum: 1500 }
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :logo, presence: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+            size: { less_than: 500.kilobytes , message: 'Must be less 500 KB' },
+            dimension: { width: { min: 250, max: 500 },
+                         height: { min: 100, max: 500 }, message: 'Must be less 500 x 500 pixels' }
+
+  # Validates with gem "active_storage_validations"
+  # validates :logo, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+  #           size: { less_than: 500.kilobytes , message: 'Must be less 500 KB' },
+  #           dimension: { width: { min: 250, max: 500 },
+  #                        height: { min: 100, max: 500 }, message: 'Must be less 500 x 500 pixels' }
 
   scope :top_rated, -> { order(average_rating: :desc, created_at: :desc).limit(3) }
   scope :popular, -> { order(enrollments_count: :desc, created_at: :desc).limit(3) }
