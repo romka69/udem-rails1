@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       patch :unapprove
     end
     resources :lessons, except: %i[index] do
+      resources :comments, except: %i[index show update]
       put :sort
       delete :delete_video, on: :member
     end

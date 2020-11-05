@@ -20,6 +20,16 @@
   .col-lg-8
     = render "lessons/lesson", lesson: @lesson
 
+    .mt-5
+      %h3
+        .fa.fa-comment
+        Comments
+      - @comments.each do |comment|
+        = render "lessons/comments/comment", comment: comment
+
+      .mt-3
+        = render "lessons/comments/form"
+
   .col-lg-4
     .lesson-lessons-list-header.mb-2
       .h5.d-inline
@@ -40,4 +50,4 @@
             = render "lessons/lesson_preview", lesson: lesson
 
 %br
-= link_to 'Back to Course', course_path(@course), class: "btn btn-outline-primary"
+= link_to 'Back to Course', course_path(@course), class: "btn btn-outline-primary mt-2"

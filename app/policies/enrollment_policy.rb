@@ -10,11 +10,11 @@ class EnrollmentPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.has_role?(:admin) || @record.course.is_bought?(@user)
+    @user.has_role?(:admin) || (@record.course.is_bought?(@user) && @record.user == @user)
   end
 
   def update?
-    @user.has_role?(:admin) || @record.course.is_bought?(@user)
+    @user.has_role?(:admin) || (@record.course.is_bought?(@user) && @record.user == @user)
   end
 
   def destroy?
