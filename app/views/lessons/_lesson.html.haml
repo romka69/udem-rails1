@@ -10,8 +10,13 @@
     .card-body
       = lesson.content
       - if @lesson.video.attached?
-        %video(controls="true" width="100%" preload="metadata")
-          %source{src: rails_blob_url(@lesson.video), type:"#{@lesson.video.content_type}"}
+        -# For basic videoplayer
+        -#%video(controls="true" width="100%" preload="metadata")
+        -#  %source{src: rails_blob_url(@lesson.video), type:"#{@lesson.video.content_type}"}
+
+        -# For video.js library
+        = content_tag :video, id: "my-video" do
+          = tag :source, src: url_for(@lesson.video), type: @lesson.video.content_type
 
     .card-footer.d-flex.justify-content-between
       .prev-lesson

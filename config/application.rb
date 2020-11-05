@@ -17,5 +17,13 @@ module Udem
     # the framework and any gems in your application.
 
     config.time_zone = 'Moscow'
+
+    config.after_initialize do
+      ActionText::ContentHelper.allowed_attributes.add 'style'
+      ActionText::ContentHelper.allowed_attributes.add 'controls'
+      ActionText::ContentHelper.allowed_tags.add 'video'
+      ActionText::ContentHelper.allowed_tags.add 'audio'
+      ActionText::ContentHelper.allowed_tags.add 'source'
+    end
   end
 end
