@@ -16,10 +16,7 @@
     - if @course.logo.attached?
       = image_tag @course.logo, class: "rounded d-block mt-0 mb-3", width: "200px"
     = f.input :short_description
-    = f.label :description
-    .form-group
-      = f.rich_text_area :description
-      %small= f.error :description, class: "text-danger"
+    = f.input :description, as: :rich_text_area
     = f.input :language, collection: Course.languages, include_blank: false
     = f.input :level, collection: Course.levels, include_blank: false
     = f.input :price
