@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.lesson = @lesson
     @comment.user = current_user
+    authorize @comment
 
     if @comment.save
       redirect_to course_lesson_path(@course, @lesson), notice: "Comment added."
@@ -16,6 +17,8 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
+    authorize @comment
+
     @comment.destroy
     redirect_to course_lesson_path(@course, @lesson), notice: "Comment deleted."
   end

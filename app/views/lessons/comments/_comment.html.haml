@@ -12,7 +12,7 @@
   .card-body
     = comment.content
 
-  -# - if policy(comment).delete?
-  .card-footer
-    = link_to "Delete", [@course, @lesson, comment], method: :delete, data: { confirm: "Are you sure?" },
-      class: "btn btn-sm btn-danger"
+  - if policy(comment).destroy?
+    .card-footer
+      = link_to "Delete", [@course, @lesson, comment], method: :delete, data: { confirm: "Are you sure?" },
+        class: "btn btn-sm btn-danger"
