@@ -3,6 +3,9 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:content => "width=device-width, initial-scale=1.0", name: "viewport"}/
+    %meta{description: "Online learning service."}/
+    %meta{author: "Roman aka @romka69 on GitHub."}/
+    = favicon_link_tag asset_path('favicon.ico')
     %title
       = content_for?(:title) ? yield(:title) : Udem
     = csrf_meta_tags

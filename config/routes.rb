@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "home/index"
   get "activity", to: "home#activity"
   get "analytics", to: "home#analytics"
+  get "privacy-policy", to: "home#privacy_policy"
 
   resources :courses do
     collection do

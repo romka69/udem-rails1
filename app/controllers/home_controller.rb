@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[index]
+  skip_before_action :authenticate_user!, only: %i[index privacy_policy]
 
   def index
     @purchased_courses = Course.joins(:enrollments).where(enrollments: {user: current_user})
@@ -20,5 +20,8 @@ class HomeController < ApplicationController
 
   def analytics
     redirect_to root_path, alert: "No access." unless current_user.has_role?(:admin)
+  end
+
+  def privacy_policy
   end
 end
