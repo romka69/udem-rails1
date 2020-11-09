@@ -15,7 +15,10 @@
     = user.sign_in_count
     .row
     current sign in at
-    = user.current_sign_in_at
+    - if user.current_sign_in_at
+      = user.current_sign_in_at
+    - else
+      LOL
     .row
     last sign in at
     = user.last_sign_in_at

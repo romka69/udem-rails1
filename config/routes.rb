@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
 
   root "home#index"
 
   get "home/index"
   get "activity", to: "home#activity"
   get "analytics", to: "home#analytics"
+  get "privacy-policy", to: "home#privacy_policy"
 
   resources :courses do
     collection do
