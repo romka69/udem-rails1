@@ -33,6 +33,7 @@ gem 'active_storage_validations'
 gem 'mini_magick', '>= 4.9.5'
 gem "image_processing"
 gem "recaptcha"
+gem 'sitemap_generator'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
