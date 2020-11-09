@@ -32,7 +32,7 @@ gem "aws-sdk-s3", require: false
 gem 'active_storage_validations'
 gem 'mini_magick', '>= 4.9.5'
 gem "image_processing"
-
+gem "recaptcha"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -46,7 +46,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-erd'
   gem 'ruby-graphviz'
-
 end
 
 group :test do
