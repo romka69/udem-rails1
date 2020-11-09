@@ -51,8 +51,16 @@
               .badge.badge-info Yes
             - else
               .badge.badge-info No
-          %td= user.current_sign_in_at.strftime("%e %B %Y, %H:%M")
-          %td= user.last_sign_in_at.strftime("%e %B %Y, %H:%M")
+          %td
+            - if user.current_sign_in_at
+              = user.current_sign_in_at.strftime("%e %B %Y, %H:%M")
+            - else
+              No variable
+          %td
+            - if user.last_sign_in_at
+              = user.last_sign_in_at.strftime("%e %B %Y, %H:%M")
+            - else
+              No variable
           %td= user.current_sign_in_ip
           %td= user.last_sign_in_ip
           %td= user.courses_count
