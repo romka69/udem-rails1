@@ -3,7 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :trackable, :confirmable
+         :trackable, :confirmable, :omniauthable,
+         omniauth_providers: [:google_oauth2, :github]
   rolify
 
   extend FriendlyId
@@ -38,6 +39,29 @@ class User < ApplicationRecord
     else
       self.user_lessons.create(lesson: lesson)
     end
+  end
+
+  def self.from_omniauth(access_token)
+    data = access_token.info
+    user = User.where(email: data['email']).first
+
+    if user
+      user.name = access_token.info.name
+      user.provider = access_token.provider
+      user.uid = access_token.uid
+      user.image = access_token.info.image
+      user.token = access_token.credentials.token
+      user.expires_at = access_token.credentials.expires_at
+      user.expires = access_token.credentials.expires
+      user.refresh_token = access_token.credentials.refresh_token
+      user.save!
+    else
+      user = User.create(email: data['email'],
+                         password: Devise.friendly_token[0,20],
+                         confirmed_at: Time.now # auto-confirm account
+      )
+    end
+    user
   end
 
   private

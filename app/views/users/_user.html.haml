@@ -46,9 +46,15 @@
     - else
       .badge.badge-success No
 
-  .card-footer.pb-3
+  .card-footer
     - user.roles.each do |role|
       .badge.badge-info
         = role.name
     - if policy(user).edit?
       = link_to "Edit roles", edit_user_path(user), class: "btn btn-sm btn-warning float-right"
+
+  .card-footer.pb-3
+    = link_to  user_google_oauth2_omniauth_authorize_path, class: "nav-link" do
+      .fab.fa-google
+      Sign in with Google
+

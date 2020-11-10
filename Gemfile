@@ -21,23 +21,26 @@ gem 'devise'
 gem 'friendly_id', '~> 5.4.0'
 gem 'ransack'
 gem 'public_activity'
-gem "rolify"
-gem "pundit"
+gem 'rolify'
+gem 'pundit'
 gem 'exception_notification'
 gem 'pagy', '~> 3.5'
-gem "chartkick"
+gem 'chartkick'
 gem 'groupdate'
 gem 'ranked-model'
-gem "aws-sdk-s3", require: false
+gem 'aws-sdk-s3', require: false
 gem 'active_storage_validations'
 gem 'mini_magick', '>= 4.9.5'
-gem "image_processing"
-gem "recaptcha"
+gem 'image_processing'
+gem 'recaptcha'
 gem 'sitemap_generator'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem "letter_opener"
+  gem 'letter_opener'
 end
 
 group :development do
