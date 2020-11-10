@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :trackable, :confirmable, :omniauthable,
-         omniauth_providers: [:google_oauth2]
+         omniauth_providers: [:google_oauth2, :github]
   rolify
 
   extend FriendlyId

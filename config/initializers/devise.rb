@@ -275,6 +275,10 @@ Devise.setup do |config|
   config.omniauth :google_oauth2,
                   Rails.application.credentials.dig(:google_client_id),
                   Rails.application.credentials.dig(:google_client_secret)
+  config.omniauth :github,
+                  "#{Rails.application.credentials[Rails.env.to_sym][:github_client_id]}",
+                  "#{Rails.application.credentials[Rails.env.to_sym][:github_client_secret]}",
+                  scope: 'user'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

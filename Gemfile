@@ -36,6 +36,7 @@ gem 'recaptcha'
 gem 'sitemap_generator'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
