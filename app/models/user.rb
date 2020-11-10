@@ -45,11 +45,21 @@ class User < ApplicationRecord
     data = access_token.info
     user = User.where(email: data['email']).first
 
-    unless user
-        user = User.create(email: data['email'],
-           password: Devise.friendly_token[0,20],
-           confirmed_at: Time.now # auto-confirm account
-        )
+    if user
+      user.name = access_token.info.name
+      user.provider = access_token.provider
+      user.uid = access_token.uid
+      user.image = access_token.info.image
+      user.token = access_token.credentials.token
+      user.expires_at = access_token.credentials.expires_at
+      user.expires = access_token.credentials.expires
+      user.refresh_token = access_token.credentials.refresh_token
+      user.save!
+    else
+      user = User.create(email: data['email'],
+                         password: Devise.friendly_token[0,20],
+                         confirmed_at: Time.now # auto-confirm account
+      )
     end
     user
   end
