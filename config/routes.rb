@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-                                                registrations: "users/registrations",
-                                                omniauth_callbacks: "users/omniauth_callbacks"
+                                              registrations: "users/registrations",
+                                              omniauth_callbacks: "users/omniauth_callbacks"
                                             }
 
   root "home#index"
@@ -18,26 +18,29 @@ Rails.application.routes.draw do
       get :created
       get :unapproved
     end
+
     member do
       get :analytics
       patch :approve
       patch :unapprove
     end
+
     resources :lessons, except: %i[index] do
       resources :comments, except: %i[index show update]
       put :sort
       delete :delete_video, on: :member
     end
+
     resources :enrollments, only: %i[new create]
   end
-
-  resources :users, only: %i[index show edit update]
 
   resources :enrollments, except: %i[new create] do
     get :my_students, on: :collection
   end
 
+  resources :users, only: %i[index show edit update]
   resources :youtube, only: :show
+  resources :tags, only: :create
 
   namespace :charts do
     get "users_per_day"
