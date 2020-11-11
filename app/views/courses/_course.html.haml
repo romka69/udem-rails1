@@ -50,6 +50,12 @@
           .fa.fa-chalkboard-teacher
           = link_to course.user.username, user_path(course.user)
 
+  - if course.tags.present?
+    .card-footer
+      - course.tags.each do |tag|
+        .badge.badge-info
+          = tag.name
+
   - if current_user
     - if policy(course).admin_or_owner?
       .card-footer

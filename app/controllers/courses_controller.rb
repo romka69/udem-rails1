@@ -19,12 +19,14 @@ class CoursesController < ApplicationController
 
   def new
     @course = Course.new
+    @tags = Tag.all
 
     authorize @course
   end
 
   def edit
     authorize @course
+    @tags = Tag.all
   end
 
   def create
@@ -37,6 +39,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
+        @tags = Tag.all
         format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
@@ -51,6 +54,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
+        @tags = Tag.all
         format.html { render :edit }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
@@ -137,6 +141,6 @@ class CoursesController < ApplicationController
 
     def course_params
       params.require(:course).permit(:title, :description, :short_description,
-                                     :price, :level, :language, :published, :logo)
+                                     :price, :level, :language, :published, :logo, tag_ids: [])
     end
 end
