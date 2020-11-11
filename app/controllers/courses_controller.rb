@@ -7,7 +7,8 @@ class CoursesController < ApplicationController
     @ransack_path = courses_path
     @ransack_courses = Course.published.approved.ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all
   end
 
   def show
@@ -80,7 +81,8 @@ class CoursesController < ApplicationController
                              .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
 
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all
     render "index"
   end
 
@@ -91,7 +93,8 @@ class CoursesController < ApplicationController
                              .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
 
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all
     render "index"
   end
 
@@ -101,7 +104,8 @@ class CoursesController < ApplicationController
                              .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
 
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all
     render "index"
   end
 
@@ -125,7 +129,8 @@ class CoursesController < ApplicationController
                            .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at asc']
 
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all
     render "index"
   end
 
