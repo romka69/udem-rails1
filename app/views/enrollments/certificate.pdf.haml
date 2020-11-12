@@ -1,0 +1,50 @@
+%center
+  %div{style: "width:1200px; height:800px; padding:20px; text-align:center; border:10px solid red"}
+    %div{style: "width:1150px; height:750px; padding:20px; text-align:center; border:5px solid black"}
+      %br
+      %br
+      %br
+      %h1{style: "font-size:50px; font-weight:bold"} Certificate of Completion
+
+      %br
+      %br
+      %br
+      %br
+      %br
+
+      %div{style: "font-size:20px;"}
+        This is to certify that the owner of email address
+        %br
+        %b
+          = @enrollment.user.email
+        %br
+        has successfully completed the course
+        %br
+        %b
+          = @enrollment.course.title
+        %br
+        on the udem-rails.herokuapp.com platform
+
+      %br
+      %br
+      %br
+
+      %b Certificate id:
+      #{@enrollment.slug}
+
+      %br
+
+      %b Certificate url:
+      #{request.base_url}#{request.original_fullpath}
+
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+
+      %h3
+        = image_tag wicked_pdf_asset_base64("circle.png"), height: 64, width: "auto"
+        %br
+        https://udem-rails.herokuapp.com

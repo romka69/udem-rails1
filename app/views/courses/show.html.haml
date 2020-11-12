@@ -45,6 +45,7 @@
           .far.fa-flag
           Progress:
           = number_to_percentage(@course.progress(current_user), precision: 0)
+      != certificate_button(@course)
 
     - if policy(@course).edit?
       %small You can change sorting lessons. Just drag and drop in list.
@@ -66,7 +67,7 @@
     - @enrollments_with_reviews.each do |enrollment|
       = render "enrollments/enrollment", enrollment: enrollment
 
-%h4
+%h4.pb-2
   Similar Courses
 - @another_courses.each do |course|
   - unless @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count.zero?
