@@ -1,0 +1,30 @@
+%center
+  %h1
+    Certificate of Completion
+
+%br
+
+%center
+  This is to certify that the owner of email address
+  %b
+    = @enrollment.user.email
+  has successfully completed the course
+  %b
+    = @enrollment.course.title
+  on the udem-rails.herokuapp.com platform
+
+%br
+
+%b Certificate id:
+#{@enrollment.slug}
+
+%br
+
+%b Certificate url:
+#{request.base_url}#{request.original_fullpath}
+
+%center
+  %h3
+    = image_tag wicked_pdf_asset_base64("circle.png"), height: 64, width: "auto"
+    %br
+    https://udem-rails.herokuapp.com

@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   resources :enrollments, except: %i[new create] do
     get :my_students, on: :collection
+    get :certificate, on: :member
   end
 
   resources :users, only: %i[index show edit update]
