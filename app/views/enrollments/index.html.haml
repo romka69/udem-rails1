@@ -30,6 +30,7 @@
         %th= sort_link(@q, :rating)
         %th= sort_link(@q, :review)
         %th Progress
+        %th Certificate
         %th
         %th
         %th
@@ -48,12 +49,13 @@
           %td= enrollment.rating
           %td= truncate(enrollment.review, length: 7)
           %td= number_to_percentage(enrollment.course.progress(enrollment.user), precision: 0)
-          %td= link_to 'See Review', enrollment
+          %td= link_to "Certificate", certificate_enrollment_path(enrollment, format: :pdf)
+          %td= link_to "See Review", enrollment
           %td
             - if policy(enrollment).edit?
-              = link_to 'Edit Review', edit_enrollment_path(enrollment)
+              = link_to "Edit Review", edit_enrollment_path(enrollment)
           %td
             - if policy(enrollment).destroy?
-              = link_to 'Delete Enrollment', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
+              = link_to "Delete Enrollment", enrollment, method: :delete, data: { confirm: "Are you sure?" }
 
 != pagy_bootstrap_nav(@pagy)
