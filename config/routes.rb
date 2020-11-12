@@ -40,7 +40,7 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[index show edit update]
   resources :youtube, only: :show
-  resources :tags, only: :create
+  resources :tags, only: %i[index create destroy]
 
   namespace :charts do
     get "users_per_day"

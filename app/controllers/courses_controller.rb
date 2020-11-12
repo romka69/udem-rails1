@@ -8,7 +8,7 @@ class CoursesController < ApplicationController
     @ransack_courses = Course.published.approved.ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
-    @tags = Tag.all
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
   end
 
   def show
@@ -82,7 +82,7 @@ class CoursesController < ApplicationController
     @ransack_courses.sorts = ['created_at desc']
 
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
-    @tags = Tag.all
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     render "index"
   end
 
@@ -94,7 +94,7 @@ class CoursesController < ApplicationController
     @ransack_courses.sorts = ['created_at desc']
 
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
-    @tags = Tag.all
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     render "index"
   end
 
@@ -105,7 +105,7 @@ class CoursesController < ApplicationController
     @ransack_courses.sorts = ['created_at desc']
 
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
-    @tags = Tag.all
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     render "index"
   end
 
@@ -130,7 +130,7 @@ class CoursesController < ApplicationController
     @ransack_courses.sorts = ['created_at asc']
 
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
-    @tags = Tag.all
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     render "index"
   end
 

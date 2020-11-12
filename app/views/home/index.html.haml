@@ -57,6 +57,17 @@
   %hr
 
 %h3
+  .fa.fa-tags
+  Popular tags
+- @popular_tags.each do |tag|
+  = link_to controller: controller_name, action: action_name, courses_search: {course_tags_tag_id_eq: tag.id} do
+    .badge.badge-info
+      %h6.m-0.p-0
+        = tag.name
+        = tag.course_tags_count
+%hr
+
+%h3
   .fas.fa-chart-line
   Popular courses
 .card-columns

@@ -1,0 +1,16 @@
+- content_for :title do
+  Tags
+  \|
+  Udem
+
+%h1
+  Tags
+
+.pt-4
+  - @tags.each do |tag|
+    .d-block
+      = link_to tag_path(tag), method: :delete, data: { confirm: "Are you sure?" }, class: "mr-3 btn btn-outline-danger btn-sm" do
+        .fas.fa-trash
+      = tag.name
+      = tag.course_tags_count
+
