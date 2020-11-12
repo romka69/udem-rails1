@@ -44,7 +44,7 @@ class EnrollmentsController < ApplicationController
     respond_to do |format|
       if @enrollment.update(enrollment_params)
         format.html { redirect_to @enrollment, notice: 'Enrollment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @enrollment }
+        format.json { render :certificate, status: :ok, location: @enrollment }
       else
         format.html { render :edit }
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }
@@ -71,12 +71,14 @@ class EnrollmentsController < ApplicationController
   end
 
   def certificate
+    authorize @enrollment, :certificate?
+
     respond_to do |format|
       format.html
       format.pdf do
         render pdf: "#{@enrollment.course.title}, #{@enrollment.user.email}",
                page_size: "A4",
-               template: "enrollments/show.pdf.haml"
+               template: "enrollments/certificate.pdf.haml"
       end
     end
   end
