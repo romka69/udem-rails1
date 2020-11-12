@@ -17,6 +17,20 @@ class CoursesController < ApplicationController
     @lessons = @course.lessons.rank(:row_order)
     @enrollments_with_reviews = @course.enrollments.reviewed
     @another_courses = Course.all.where.not(id: @course.id)
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{@course.title}, #{current_user.email}",
+        page_size: "A4",
+        template: "courses/show.pdf.haml",
+        layout: "pdf.html.haml",
+        orientation: "Portrait",
+        lowquality: true,
+        zoom: 1,
+        dpi: 75
+      end
+    end
   end
 
   def new
