@@ -16,6 +16,7 @@ class CoursesController < ApplicationController
 
     @lessons = @course.lessons.rank(:row_order)
     @enrollments_with_reviews = @course.enrollments.reviewed
+    @another_courses = Course.all.where.not(id: @course.id)
   end
 
   def new
