@@ -30,4 +30,22 @@ module CoursesHelper
       end
     end
   end
+
+  def certificate_button(course)
+    user_course = course.enrollments.where(user: current_user)
+
+    if user_course&.any?
+      if course.progress(current_user) == 100
+        "
+          <div class='text-center py-2'>
+            #{
+              link_to certificate_enrollment_path(user_course.first, format: :pdf), class: 'btn btn-success' do
+                'Certificate of completion'
+              end
+            }
+          </div>
+        "
+      end
+    end
+  end
 end
