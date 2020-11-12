@@ -5,6 +5,9 @@
 
   .form-inputs
     = f.input :title
+    .form-group
+      = f.label "Tags"
+      = f.select :tag_ids, @tags.all.pluck(:name, :id), {}, { multiple: true, class: "selectize-tags"}
     -# Layout for gem "active_storage_validations"
     -#.form-group
     -#  = f.label "Logo", class: "d-block"

@@ -7,7 +7,8 @@ class CoursesController < ApplicationController
     @ransack_path = courses_path
     @ransack_courses = Course.published.approved.ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
   end
 
   def show
@@ -15,16 +16,19 @@ class CoursesController < ApplicationController
 
     @lessons = @course.lessons.rank(:row_order)
     @enrollments_with_reviews = @course.enrollments.reviewed
+    @another_courses = Course.all.where.not(id: @course.id)
   end
 
   def new
     @course = Course.new
+    @tags = Tag.all
 
     authorize @course
   end
 
   def edit
     authorize @course
+    @tags = Tag.all
   end
 
   def create
@@ -37,6 +41,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
+        @tags = Tag.all
         format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
@@ -51,6 +56,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
+        @tags = Tag.all
         format.html { render :edit }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
@@ -76,7 +82,8 @@ class CoursesController < ApplicationController
                              .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
 
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     render "index"
   end
 
@@ -87,7 +94,8 @@ class CoursesController < ApplicationController
                              .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
 
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     render "index"
   end
 
@@ -97,7 +105,8 @@ class CoursesController < ApplicationController
                              .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
 
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     render "index"
   end
 
@@ -121,7 +130,8 @@ class CoursesController < ApplicationController
                            .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at asc']
 
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     render "index"
   end
 
@@ -137,6 +147,6 @@ class CoursesController < ApplicationController
 
     def course_params
       params.require(:course).permit(:title, :description, :short_description,
-                                     :price, :level, :language, :published, :logo)
+                                     :price, :level, :language, :published, :logo, tag_ids: [])
     end
 end

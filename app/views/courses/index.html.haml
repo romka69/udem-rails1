@@ -11,6 +11,8 @@
     = search_form_for @ransack_courses, url: @ransack_path, as: :courses_search  do |f|
       = f.label :title
       = f.search_field :title_or_short_description_cont, class: "form-control form-control-sm"
+      = f.label :tag
+      = f.search_field :course_tags_tag_name_cont, class: "form-control form-control-sm"
       = f.label :description
       = f.search_field :short_description_cont, class: "form-control form-control-sm"
       = f.label :language
@@ -24,6 +26,12 @@
       = f.submit
       = link_to @ransack_path, class: "btn btn-sm" do
         .fa.fa-sync
+      .mt-3
+      - @tags.all.order(course_tags_count: :desc).each do |tag|
+        = link_to controller: controller_name, action: action_name, courses_search: {course_tags_tag_id_eq: tag.id} do
+          .badge.badge-info
+            = tag.name
+            = tag.course_tags_count
 
   .col-lg-10
     .mb-3

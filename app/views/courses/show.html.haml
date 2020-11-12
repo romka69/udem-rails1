@@ -65,3 +65,10 @@
       = pluralize(@enrollments_with_reviews.count, "Review")
     - @enrollments_with_reviews.each do |enrollment|
       = render "enrollments/enrollment", enrollment: enrollment
+
+%h4
+  Similar Courses
+- @another_courses.each do |course|
+  - unless @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count.zero?
+    .card-columns
+      = render "courses/course", course: course

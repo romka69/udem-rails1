@@ -13,6 +13,7 @@ require("@rails/actiontext")
 require("chartkick")
 require("chart.js")
 require("jquery-ui-dist/jquery-ui")
+require("selectize")
 
 import "bootstrap"
 import "../course"
@@ -21,3 +22,4 @@ import videojs from "video.js"
 import "video.js/dist/video-js.css"
 import "../videoPlayer"
 import "../youtube"
+import "../selectizeSettings"

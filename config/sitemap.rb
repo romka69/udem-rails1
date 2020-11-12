@@ -29,6 +29,7 @@ SitemapGenerator::Sitemap.create do
   add '/activity', :changefreq => 'daily', :priority => 0.9
   add '/analytics', :changefreq => 'daily', :priority => 0.9
   add '/privacy-policy', :changefreq => 'weekly', :priority => 0.9
+  add '/tags', :changefreq => 'weekly', :priority => 0.9
   Course.find_each do |c|
     add course_path(c), :lastmod => c.updated_at
   end
