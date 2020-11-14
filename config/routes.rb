@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     end
 
     resources :enrollments, only: %i[new create]
+    resources :course_creator, controller: "courses/course_creator"
   end
 
   resources :enrollments, except: %i[new create] do
@@ -42,7 +43,6 @@ Rails.application.routes.draw do
   resources :users, only: %i[index show edit update]
   resources :youtube, only: :show
   resources :tags, only: %i[index create destroy]
-  resources :course_creator
 
   namespace :charts do
     get "users_per_day"
