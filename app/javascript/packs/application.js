@@ -14,6 +14,7 @@ require("chartkick")
 require("chart.js")
 require("jquery-ui-dist/jquery-ui")
 require("selectize")
+require("@nathanvda/cocoon")
 
 import "bootstrap"
 import "../course"
