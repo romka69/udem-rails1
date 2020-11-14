@@ -29,15 +29,19 @@ class EnrollmentsController < ApplicationController
   end
 
   def create
-    if @course.price > 0
-      flash[:alert] = "You can not access paid courses yet."
-      redirect_to new_course_enrollment_path(@course)
-    else
-      @enrollment = current_user.buy_course(@course)
-      redirect_to course_path(@course), notice: "You are enrolled."
-      EnrollmentMailer.new_enrollment_student(@enrollment).deliver_now
-      EnrollmentMailer.new_enrollment_teacher(@enrollment).deliver_now
-    end
+    @enrollment = current_user.buy_course(@course)
+    redirect_to course_path(@course), notice: "You are enrolled."
+    EnrollmentMailer.new_enrollment_student(@enrollment).deliver_now
+    EnrollmentMailer.new_enrollment_teacher(@enrollment).deliver_now
+    # if @course.price > 0
+    #   flash[:alert] = "You can not access paid courses yet."
+    #   redirect_to new_course_enrollment_path(@course)
+    # else
+    #   @enrollment = current_user.buy_course(@course)
+    #   redirect_to course_path(@course), notice: "You are enrolled."
+    #   EnrollmentMailer.new_enrollment_student(@enrollment).deliver_now
+    #   EnrollmentMailer.new_enrollment_teacher(@enrollment).deliver_now
+    # end
   end
 
   def update
