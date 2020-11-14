@@ -7,6 +7,9 @@ class User < ApplicationRecord
          omniauth_providers: [:google_oauth2, :github]
   rolify
 
+  include PublicActivity::Model
+  tracked only: %i[create destroy], owner: :itself
+
   extend FriendlyId
   friendly_id :email, use: :slugged
 
