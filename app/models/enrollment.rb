@@ -8,9 +8,13 @@ class Enrollment < ApplicationRecord
   validates_uniqueness_of :course_id, scope: :user_id
   validate :cant_subscribe_to_own_course
 
+  after_create :calculate_balance
+
   after_save do
     course.update_rating unless rating.nil? || rating.zero?
   end
+
+  after_destroy :calculate_balance
 
   after_destroy do
     course.update_rating
@@ -37,5 +41,10 @@ class Enrollment < ApplicationRecord
         end
       end
     end
+  end
+
+  def calculate_balance
+    course.calculate_income
+    user.calculate_enrollment_expences
   end
 end

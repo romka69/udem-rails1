@@ -73,6 +73,11 @@ class Course < ApplicationRecord
     end
   end
 
+  def calculate_income
+    update_column :income, (enrollments.map(&:price).sum)
+    user.calculate_course_income
+  end
+
   # def generated_slug
   #   require "securerandom"
   #   @random_slug ||= persisted? ? friendly_id : SecureRandom.hex(4)

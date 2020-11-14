@@ -39,6 +39,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'wicked_pdf'
 gem "cocoon"
+gem 'stripe'
 
 group :production do
   gem 'wkhtmltopdf-heroku'

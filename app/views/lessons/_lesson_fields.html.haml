@@ -1,9 +1,9 @@
-.nested-fields.border.p-2.mb-3
+.nested-fields.border.rounded.p-2.mb-3
   = f.input :title
   = f.input :content, as: :rich_text_area
-  = f.input :video
 
   -# remove upload video for lessons, because expensive hosting :)
+  -# = f.input :video
   -# - if @lesson.video.attached?
   -#   %span.mt-0= @lesson.video.filename
   -#   = link_to "Delete video", delete_video_course_lesson_path(@course, @lesson),method: :delete,
