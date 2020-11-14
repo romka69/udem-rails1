@@ -1,7 +1,7 @@
 - content_for :title do
   Udem - online courses. Rails teach project.
 
-.jumbotron
+.jumbotron{style: "background-image: url('/home.png')"}
   .display-4.pb-4
     What do you want learn today?
 
@@ -9,6 +9,12 @@
     = search_form_for @ransack_courses, as: :courses_search, url: courses_path, class: "form-inline my-2 my-lg-0" do |f|
       = f.search_field :title_or_short_description_cont, placeholder: "Search", class: "form-control mr-sm-2"
       %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} Search
+  - else
+    .mt-2
+      = link_to "Sign in with GitHub", user_github_omniauth_authorize_path, class: "btn btn-outline-primary"
+      .py-1
+      = link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, class: "btn btn-outline-primary"
+
 
 .card-group.pb-3
   .card.card-body

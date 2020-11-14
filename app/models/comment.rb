@@ -3,7 +3,7 @@ class Comment < ApplicationRecord
   belongs_to :lesson, counter_cache: true
 
   validates :content, presence: true
-  validates :content, length: { minimum: 5, maximum: 250 }
+  validates :content, length: { minimum: 3, maximum: 250 }
 
   include PublicActivity::Model
   tracked owner: Proc.new{ |controller, model| controller.current_user }

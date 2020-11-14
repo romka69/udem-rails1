@@ -12,24 +12,28 @@
       = @course.title
 
 .jumbotron
-  - if @course.logo.attached?
-    = image_tag @course.logo, class: "rounded d-block", width: "250px"
-  %h1.pt-4.mb-0
-    .fa.fa-graduation-cap
-    = @course.title
-  .pt-3
-    .fa.fa-clock
-    Updated:
-    = @course.updated_at.strftime("%e %B %Y")
-  .pt-3
-    %span
-      .fa.fa-globe-africa
-      = @course.language
-    %span.ml-4
-      .fa.fa-signal
-      = @course.level
-  .pt-4
-  = @course.description
+  .row
+    .col-md-6.col-lg-4.d-flex.justify-content-center
+      - if @course.logo.attached?
+        = image_tag @course.logo, class: "rounded d-block", width: "250px"
+
+    .col-md-6.col-lg-8
+      %h1.pt-4.mb-0
+        .fa.fa-graduation-cap
+        = @course.title
+      .pt-3
+        .fa.fa-clock
+        Updated:
+        = @course.updated_at.strftime("%e %B %Y")
+      .pt-3
+        %span
+          .fa.fa-globe-africa
+          = @course.language
+        %span.ml-4
+          .fa.fa-signal
+          = @course.level
+      .pt-4
+      = @course.description
 
 .row
   .col-lg-4.mb-5
