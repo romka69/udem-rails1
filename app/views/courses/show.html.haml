@@ -69,6 +69,7 @@
 
 %h4.pb-2
   Similar Courses
+
 - @another_courses.each do |course|
   - unless @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count.zero?
     .card-columns
