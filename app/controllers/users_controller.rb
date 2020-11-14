@@ -2,11 +2,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update]
 
   def index
-    # @users = User.all.order(created_at: :desc)
     @q = User.ransack(params[:q])
     @q.sorts = ['created_at desc']
-    #@users = @q.result(distinct: true)
-
     @pagy, @users = pagy(@q.result(distinct: true))
 
     authorize @users

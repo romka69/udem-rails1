@@ -5,18 +5,19 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :trackable, :confirmable, :omniauthable,
          omniauth_providers: [:google_oauth2, :github]
+
   rolify
+
+  has_many :courses, dependent: :nullify
+  has_many :enrollments, dependent: :nullify
+  has_many :user_lessons, dependent: :nullify
+  has_many :comments, dependent: :nullify
 
   include PublicActivity::Model
   tracked only: %i[create destroy], owner: :itself
 
   extend FriendlyId
   friendly_id :email, use: :slugged
-
-  has_many :courses, dependent: :nullify
-  has_many :enrollments, dependent: :nullify
-  has_many :user_lessons, dependent: :nullify
-  has_many :comments, dependent: :nullify
 
   validate :must_have_a_role, on: :update
 

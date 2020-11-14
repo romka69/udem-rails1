@@ -18,6 +18,7 @@
       = "(#{time_ago_in_words(a.created_at)})"
 
       %br
+
       %strong Resource:
       = a.trackable_type
       - if a.trackable_type == "Lesson"
@@ -39,6 +40,7 @@
       = a.trackable_id
 
       %br
+
       %strong Action:
       = a.key
 

@@ -17,12 +17,15 @@
           .btn-group.mr-2{"aria-label" => "1 group", :role => "group"}
             %button.btn.btn-link.text-muted{:type => "button"}
               = sort_link(@ransack_courses, :price)
+
           .btn-group.mr-2{"aria-label" => "2 group", :role => "group"}
             %button.btn.btn-link{:type => "button"}
               = sort_link(@ransack_courses, :average_rating, "Rating")
+
           .btn-group.mr-2{"aria-label" => "3 group", :role => "group"}
             %button.btn.btn-link{:type => "button"}
               = sort_link(@ransack_courses, :enrollments_count, "Popularity")
+
           .btn-group{"aria-label" => "4 group", :role => "group"}
             %button.btn.btn-link{:type => "button"}
               = sort_link(@ransack_courses, :created_at, "Fresh")

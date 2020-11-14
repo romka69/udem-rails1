@@ -10,18 +10,20 @@ module ApplicationHelper
   def set_h1_index(model, index_list)
     model = model == Course ? model.published.approved : model
 
-    return "
-      #{controller_path.classify}s
-      <div class='badge badge-info'>
-        #{model.count}
-      </div>
-    " if current_page?(action: "index")
-
-    "
-      #{action_name.humanize} #{controller_path.classify.downcase}s
-      <div class='badge badge-info'>
-        #{index_list.count}
-      </div>
-    "
+    if current_page?(action: "index")
+      "
+        #{controller_path.classify}s
+        <div class='badge badge-info'>
+          #{model.count}
+        </div>
+      "
+    else
+      "
+        #{action_name.humanize} #{controller_path.classify.downcase}s
+        <div class='badge badge-info'>
+          #{index_list.count}
+        </div>
+      "
+    end
   end
 end

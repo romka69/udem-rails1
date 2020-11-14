@@ -2,6 +2,9 @@ class Enrollment < ApplicationRecord
   belongs_to :course, counter_cache: true
   belongs_to :user, counter_cache: true
 
+  extend FriendlyId
+  friendly_id :to_s, use: :slugged
+
   validates :user, :course, presence: true, on: :update
   validates :rating, :review, presence: true, on: :update
   validates_uniqueness_of :user_id, scope: :course_id
@@ -23,9 +26,6 @@ class Enrollment < ApplicationRecord
   scope :pending_review, -> { where(rating: [0, nil, ""], review: [0, nil, ""]) }
   scope :reviewed, -> { where.not(review: [0, nil, ""]) }
   scope :latest_reviews, -> { order(rating: :desc, created_at: :desc).limit(3) }
-
-  extend FriendlyId
-  friendly_id :to_s, use: :slugged
 
   def to_s
     "#{user.username} - #{course.title}"

@@ -21,10 +21,12 @@
       %h1.pt-4.mb-0
         .fa.fa-graduation-cap
         = @course.title
+
       .pt-3
         .fa.fa-clock
         Updated:
         = @course.updated_at.strftime("%e %B %Y")
+
       .pt-3
         %span
           .fa.fa-globe-africa
@@ -32,6 +34,7 @@
         %span.ml-4
           .fa.fa-signal
           = @course.level
+
       .pt-4
       = @course.description
 
@@ -44,11 +47,13 @@
     %h5.mb-3
       .fas.fa-tasks
       = pluralize(@course.lessons_count, "Lesson")
+
       - if @course.enrollments.where(user: current_user).any?
         .float-right
           .far.fa-flag
           Progress:
           = number_to_percentage(@course.progress(current_user), precision: 0)
+
       != certificate_button(@course)
 
     - if policy(@course).edit?
@@ -68,6 +73,7 @@
     %h5.mb-3
       .fa.fa-comment
       = pluralize(@enrollments_with_reviews.count, "Review")
+
     - @enrollments_with_reviews.each do |enrollment|
       = render "enrollments/enrollment", enrollment: enrollment
 

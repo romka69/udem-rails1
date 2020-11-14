@@ -2,8 +2,10 @@
   .card-header
     .fa.fa-user
     = link_to enrollment.user.username, user_path(enrollment.user), class: "mr-4"
+
     .fa.fa-clock
     %span.mr-4= "#{time_ago_in_words(enrollment.updated_at)} ago"
+
     .fa.fa-graduation-cap
     = link_to enrollment.course.title, course_path(enrollment.course)
 

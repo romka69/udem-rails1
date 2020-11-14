@@ -3,6 +3,7 @@
     .form-inputs
       = f.simple_fields_for :lessons do |lesson|
         = render 'lesson_fields', f: lesson
+
     .links.mt-2
       = link_to_add_association 'Add one more lesson', f, :lessons, class: "btn btn-sm btn-primary"
 

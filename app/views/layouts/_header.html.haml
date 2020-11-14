@@ -26,8 +26,10 @@
       %ul.navbar-nav.mr-right
         - if current_user.has_role?(:admin)
           = render "layouts/roles/admin"
+
         - if current_user.has_role?(:teacher)
           = render "layouts/roles/teacher"
+
         - if current_user.has_role?(:student)
           = render "layouts/roles/student"
 
@@ -37,6 +39,7 @@
                                                       "data-toggle" => "dropdown", :href => "#", :role => "button" }
             .fa.fa-user
             = current_user.email
+
           .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
             = link_to user_path(current_user), class: "dropdown-item" do
               .fa.fa-user-cog
@@ -54,5 +57,6 @@
       %ul.navbar-nav.mr-auto
         %li.nav-item.active
           = link_to "Log in", new_user_session_path, class: "nav-link"
+
         %li.nav-item.active
           = link_to "Sign in", new_user_registration_path, class: "nav-link"

@@ -13,18 +13,22 @@
   .card-footer
     sing in count
     = user.sign_in_count
+
     .row
     current sign in at
     - if user.current_sign_in_at
       = user.current_sign_in_at
     - else
       LOL
+
     .row
     last sign in at
     = user.last_sign_in_at
+
     .row
     current sign in ip
     = user.current_sign_in_ip
+
     .row
     last sign in ip
     = user.last_sign_in_ip
@@ -32,9 +36,11 @@
   .card-footer
     Course income
     = user.course_income
+
     .row
     Enrollment expences
     = user.enrollment_expences
+
     .row
     Balance
     = user.balance
@@ -42,9 +48,11 @@
   .card-footer
     Courses created:
     = user.courses_count
+
     .row
     Enrollments created:
     = user.enrollments_count
+
     .row
     Wrote comments
     = user.comments_count
@@ -60,6 +68,7 @@
     - user.roles.each do |role|
       .badge.badge-info
         = role.name
+
     - if policy(user).edit?
       = link_to "Edit roles", edit_user_path(user), class: "btn btn-sm btn-warning float-right"
 
