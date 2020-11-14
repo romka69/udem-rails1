@@ -76,6 +76,7 @@
     - if policy(course).admin_or_owner?
       .card-footer.text-right
         = link_to "Add Lesson", new_course_lesson_path(course), class: "btn btn-sm btn-primary"
+        = link_to "Wizard", course_course_creator_index_path(course), class: "btn btn-sm btn-warning"
         = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-warning"
         - if policy(course).destroy?
           = link_to 'Delete', course_path(course), method: :delete, data: { confirm: 'Are you sure?' },

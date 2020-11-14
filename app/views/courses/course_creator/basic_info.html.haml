@@ -1,1 +1,10 @@
-= render "courses/course_creator/template"
+= render layout: "courses/course_creator/step" do
+  = simple_form_for @course, url: course_course_creator_path, method: :put do |f|
+    = f.input :title
+    = f.input :logo
+    - if @course.logo.attached?
+      = image_tag @course.logo, class: "rounded d-block mt-0 mb-3", width: "200px"
+    = f.input :short_description
+    = f.input :description, as: :rich_text_area
+    = f.input :language, collection: Course.languages, include_blank: false
+    = f.button :submit

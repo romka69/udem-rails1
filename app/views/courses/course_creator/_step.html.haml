@@ -1,0 +1,53 @@
+- content_for :title do
+  = @course.title
+  \|
+  Edit
+  \|
+  Udem
+
+%nav.mb-4{"aria-label" => "breadcrumb"}
+  %ol.breadcrumb.mb-0
+    %li.breadcrumb-item
+      = link_to "Courses", courses_path
+
+    %li.breadcrumb-item
+      = link_to @course.title, course_path(@course)
+
+    %li.breadcrumb-item.active{"aria-current" => "page"}
+      Edit
+      = step.to_s.humanize
+
+.card
+  .progress
+    .progress-bar{style: "width: #{@progress}%"}
+      = number_to_percentage(@progress, precision: 0)
+
+  .progress
+    - wizard_steps.each do |s|
+      - if current_page?(course_course_creator_path(@course, s))
+        - @color = "bg-success"
+      - else
+        - @color = "bg-secondary"
+      = link_to course_course_creator_path(@course, s), class: "progress-bar #{@color}", style: "width: #{@progress}%" do
+        = wizard_steps.index(s) + 1
+        = s.to_s.humanize
+
+  .card-header
+    %h1
+      = wizard_steps.index(step) + 1
+      \/ 2
+      = step.to_s.humanize
+
+  .card-body
+    = yield
+
+  .card-footer
+    .float-left
+      = link_to previous_wizard_path, class: "btn btn-sm btn-secondary" do
+        .fa.fa-arrow-left
+        Previous
+
+    .float-right
+      = link_to next_wizard_path, class: "btn btn-sm btn-info" do
+        Next
+        .fa.fa-arrow-right
