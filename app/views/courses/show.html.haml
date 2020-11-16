@@ -12,24 +12,31 @@
       = @course.title
 
 .jumbotron
-  - if @course.logo.attached?
-    = image_tag @course.logo, class: "rounded d-block", width: "250px"
-  %h1.pt-4.mb-0
-    .fa.fa-graduation-cap
-    = @course.title
-  .pt-3
-    .fa.fa-clock
-    Updated:
-    = @course.updated_at.strftime("%e %B %Y")
-  .pt-3
-    %span
-      .fa.fa-globe-africa
-      = @course.language
-    %span.ml-4
-      .fa.fa-signal
-      = @course.level
-  .pt-4
-  = @course.description
+  .row
+    .col-md-6.col-lg-4.d-flex.justify-content-center
+      - if @course.logo.attached?
+        = image_tag @course.logo, class: "rounded d-block", width: "250px"
+
+    .col-md-6.col-lg-8
+      %h1.pt-4.mb-0
+        .fa.fa-graduation-cap
+        = @course.title
+
+      .pt-3
+        .fa.fa-clock
+        Updated:
+        = @course.updated_at.strftime("%e %B %Y")
+
+      .pt-3
+        %span
+          .fa.fa-globe-africa
+          = @course.language
+        %span.ml-4
+          .fa.fa-signal
+          = @course.level
+
+      .pt-4
+      = @course.description
 
 .row
   .col-lg-4.mb-5
@@ -40,11 +47,13 @@
     %h5.mb-3
       .fas.fa-tasks
       = pluralize(@course.lessons_count, "Lesson")
+
       - if @course.enrollments.where(user: current_user).any?
         .float-right
           .far.fa-flag
           Progress:
           = number_to_percentage(@course.progress(current_user), precision: 0)
+
       != certificate_button(@course)
 
     - if policy(@course).edit?
@@ -64,13 +73,14 @@
     %h5.mb-3
       .fa.fa-comment
       = pluralize(@enrollments_with_reviews.count, "Review")
+
     - @enrollments_with_reviews.each do |enrollment|
       = render "enrollments/enrollment", enrollment: enrollment
 
 %h4.pb-2
   Similar Courses
 
-- @another_courses.each do |course|
-  - unless @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count.zero?
-    .card-columns
+.card-columns
+  - @another_courses.each do |course|
+    - unless @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count.zero?
       = render "courses/course", course: course

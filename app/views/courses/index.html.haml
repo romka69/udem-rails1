@@ -7,33 +7,7 @@
   != set_h1_index(Course, @courses)
 
 .row.pt-4
-  .col-lg-2.pb-4
-    = search_form_for @ransack_courses, url: @ransack_path, as: :courses_search  do |f|
-      = f.label :title
-      = f.search_field :title_or_short_description_cont, class: "form-control form-control-sm"
-      = f.label :tag
-      = f.search_field :course_tags_tag_name_cont, class: "form-control form-control-sm"
-      = f.label :description
-      = f.search_field :short_description_cont, class: "form-control form-control-sm"
-      = f.label :language
-      = f.select :language_cont, Course.languages, include_blank: true, class: "form-control form-control-sm"
-      = f.label :level
-      = f.select :level_cont, Course.levels, include_blank: true, class: "form-control form-control-sm"
-      = f.label :price
-      = f.search_field :price_eq, class: "form-control form-control-sm"
-      = f.label :user_email
-      = f.search_field :user_email_cont, class: "form-control form-control-sm"
-      = f.submit
-      = link_to @ransack_path, class: "btn btn-sm" do
-        .fa.fa-sync
-      .mt-3
-      - @tags.all.order(course_tags_count: :desc).each do |tag|
-        = link_to controller: controller_name, action: action_name, courses_search: {course_tags_tag_id_eq: tag.id} do
-          .badge.badge-info
-            = tag.name
-            = tag.course_tags_count
-
-  .col-lg-10
+  .col-12
     .mb-3
       .d-flex.justify-content-end
         .d-flex.align-items-center
@@ -43,16 +17,51 @@
           .btn-group.mr-2{"aria-label" => "1 group", :role => "group"}
             %button.btn.btn-link.text-muted{:type => "button"}
               = sort_link(@ransack_courses, :price)
+
           .btn-group.mr-2{"aria-label" => "2 group", :role => "group"}
             %button.btn.btn-link{:type => "button"}
               = sort_link(@ransack_courses, :average_rating, "Rating")
+
           .btn-group.mr-2{"aria-label" => "3 group", :role => "group"}
             %button.btn.btn-link{:type => "button"}
               = sort_link(@ransack_courses, :enrollments_count, "Popularity")
+
           .btn-group{"aria-label" => "4 group", :role => "group"}
             %button.btn.btn-link{:type => "button"}
               = sort_link(@ransack_courses, :created_at, "Fresh")
 
+  .col-lg-2.pb-4
+    = search_form_for @ransack_courses, url: @ransack_path, as: :courses_search  do |f|
+      .form-group
+        = f.label :title, "Title or Description"
+        = f.search_field :title_or_short_description_cont, class: "form-control form-control-sm"
+      -# = f.label :tag
+      -# = f.search_field :course_tags_tag_name_cont, class: "form-control form-control-sm"
+      -# = f.label :description
+      -# = f.search_field :short_description_cont, class: "form-control form-control-sm"
+      .form-group
+        = f.label :language
+        = f.select :language_cont, Course.languages, {include_blank: true}, {class: "custom-select custom-select-sm"}
+      .form-group
+        = f.label :level
+        = f.select :level_cont, Course.levels, {include_blank: true}, {class: "custom-select custom-select-sm"}
+      -# = f.label :price
+      -# = f.search_field :price_eq, class: "form-control form-control-sm"
+      -# = f.label :user_email
+      -# = f.search_field :user_email_cont, class: "form-control form-control-sm"
+      = f.submit "Search", class: "btn btn-sm btn-primary mt-1 w-100"
+      -# = link_to @ransack_path, class: "btn btn-sm" do
+      -#   .fa.fa-sync
+
+      .mt-4
+      - @tags.all.order(course_tags_count: :desc).each do |tag|
+        = link_to controller: controller_name, action: action_name, courses_search: {course_tags_tag_id_eq: tag.id} do
+          .badge.badge-info
+            = tag.name
+            .badge.badge-light
+              = tag.course_tags_count
+
+  .col-lg-10
     .card-columns
       - @courses.each do |course|
         = render "courses/course", course: course

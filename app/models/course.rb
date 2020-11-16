@@ -1,7 +1,4 @@
 class Course < ApplicationRecord
-  include PublicActivity::Model
-  extend FriendlyId
-
   belongs_to :user, counter_cache: true
 
   has_many :lessons, dependent: :destroy, inverse_of: :course
@@ -13,6 +10,12 @@ class Course < ApplicationRecord
   has_one_attached :logo
 
   accepts_nested_attributes_for :lessons, reject_if: :all_blank, allow_destroy: true
+
+  include PublicActivity::Model
+  tracked owner: Proc.new{ |controller, model| controller.current_user }
+
+  extend FriendlyId
+  friendly_id :title, use: :slugged
 
   validates :title, :language, :level, presence: true, length: { minimum: 5, maximum: 70 }
   validates :title, uniqueness: true
@@ -38,14 +41,10 @@ class Course < ApplicationRecord
   scope :approved, -> { where(approved: true) }
   scope :unapproved, -> { where(approved: false) }
 
+  has_rich_text :description
+
   LANGUAGES = %i(English Russian)
   LEVELS = %i(Beginner Intermediate Advanced)
-
-  has_rich_text :description
-  friendly_id :title, use: :slugged
-  # friendly_id :generated_slug, use: :slugged
-
-  tracked owner: Proc.new{ |controller, model| controller.current_user }
 
   def self.languages
     LANGUAGES.map { |lang| [lang, lang] }
@@ -77,9 +76,4 @@ class Course < ApplicationRecord
     update_column :income, (enrollments.map(&:price).sum)
     user.calculate_course_income
   end
-
-  # def generated_slug
-  #   require "securerandom"
-  #   @random_slug ||= persisted? ? friendly_id : SecureRandom.hex(4)
-  # end
 end

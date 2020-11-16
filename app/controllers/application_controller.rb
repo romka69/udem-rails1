@@ -6,9 +6,7 @@ class ApplicationController < ActionController::Base
 
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
   include PublicActivity::StoreController # save current_user using activity gem
-
   include Pagy::Backend
 
   def set_global_variables

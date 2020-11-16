@@ -22,6 +22,7 @@
     .float-right.ml-2
       = link_to edit_course_lesson_path(@course, lesson), class: "btn btn-sm btn-outline-info mr-1" do
         .fas.fa-pen
+
       = link_to course_lesson_path(@course, lesson), method: :delete, data: { confirm: "You are sure?" },
         class: "btn btn-sm btn-outline-danger" do
         .fas.fa-trash
