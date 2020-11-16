@@ -1,0 +1,38 @@
+.card.mb-3
+  .card-header
+    - if lesson.viewed?(current_user)
+      .text-success.far.fa-check-square
+    - else
+      .text-secondary.far.fa-square
+    = link_to lesson.title, course_lesson_path(@course, lesson)
+
+  - if policy(lesson).show?
+    .card-body
+      = lesson.content
+      - if @lesson.video.attached?
+        -# For basic videoplayer
+        -#%video(controls="true" width="100%" preload="metadata")
+        -#  %source{src: rails_blob_url(@lesson.video), type:"#{@lesson.video.content_type}"}
+
+        -# For video.js library
+        = content_tag :video, id: "my-video" do
+          = tag :source, src: url_for(@lesson.video), type: @lesson.video.content_type
+
+    .card-footer.d-flex.justify-content-between
+      .prev-lesson
+        - if lesson.prev_element.present?
+          = link_to course_lesson_path(@course, lesson.prev_element), class: "btn btn-sm btn-outline-success" do
+            .fa.fa-arrow-left
+            Previous
+
+      .editable.text-center
+        - if policy(lesson).owner?
+          = link_to "Edit", edit_course_lesson_path(@course, lesson), class: "btn btn-sm btn-warning"
+          = link_to "Delete", course_lesson_path(@course, lesson), method: :delete, data: { confirm: "You are sure?" },
+                              class: "btn btn-sm btn-danger"
+
+      .next-lesson
+        - if lesson.next_element.present?
+          = link_to course_lesson_path(@course, lesson.next_element), class: "btn btn-sm btn-outline-success" do
+            .fa.fa-arrow-right
+            Next

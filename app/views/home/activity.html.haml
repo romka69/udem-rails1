@@ -1,0 +1,55 @@
+- content_for :title do
+  Activity
+  \|
+  Udem
+
+%h1
+  Activity
+  .badge.badge-info
+    = @activities.count
+
+%ul.list-group.pt-4.mb-3
+  - @activities.each do |a|
+    %li.list-group-item
+      != crud_label(a.key.split(".")[1])
+      %strong.ml-2 Id:
+      = "#{a.id},"
+      = a.created_at.strftime("%e %B %Y %H:%M")
+      = "(#{time_ago_in_words(a.created_at)})"
+
+      %br
+      %strong Resource:
+      = a.trackable_type
+      - if a.trackable_type == "Lesson"
+        - if Lesson.where(id: a.trackable_id).present?
+          = link_to a.trackable.title, course_lesson_path(a.trackable.course, a.trackable)
+        - else
+          Lesson was deleted
+
+      - elsif a.trackable_type == "Comment"
+        - if Comment.where(id: a.trackable_id).present?
+          = link_to a.trackable.content, course_lesson_path(a.trackable.lesson.course, a.trackable.lesson)
+        - else
+          Comment was deleted
+
+      - else
+        = link_to a.trackable.title, a.trackable
+
+      %strong Resource id:
+      = a.trackable_id
+
+      %br
+      %strong Action:
+      = a.key
+
+      - if a.parameters.any?
+        %br
+        %strong Params:
+        = a.parameters
+
+      - if a.owner
+        %br
+        %strong Owner:
+        = link_to a.owner.email, user_path(a.owner)
+
+!= pagy_bootstrap_nav(@pagy)

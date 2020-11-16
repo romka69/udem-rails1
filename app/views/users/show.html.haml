@@ -1,0 +1,14 @@
+- content_for :title do
+  = @user.username
+  \|
+  Udem
+
+%nav.mb-4{"aria-label" => "breadcrumb"}
+  %ol.breadcrumb.mb-0
+    %li.breadcrumb-item
+      = link_to "Users", users_path
+
+    %li.breadcrumb-item.active{"aria-current" => "page"}
+      = @user.username
+
+= render "users/user", user: @user

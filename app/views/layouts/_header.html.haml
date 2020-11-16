@@ -1,0 +1,58 @@
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light.mb-4
+  = link_to root_path, class: "navbar-brand" do
+    .far.fa-bookmark
+    Udem
+
+  %button.navbar-toggler{ "aria-controls" => "navbarSupportedContent", "aria-expanded" => "false",
+                          "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent",
+                          "data-toggle" => "collapse", :type => "button" }
+    %span.navbar-toggler-icon
+
+  #navbarSupportedContent.collapse.navbar-collapse
+    - if current_user
+      %ul.navbar-nav.mr-auto
+        %li.nav-item
+          = link_to courses_path, class: "nav-link" do
+            .fa.fa-graduation-cap
+            Courses
+
+        = search_form_for @ransack_courses, as: :courses_search, url: courses_path, class: "form-inline my-2 my-lg-0" do |f|
+          .input-group.input-group-sm.ml-lg-4
+            = f.search_field :title_or_short_description_cont, class: "form-control"
+            %span.input-group-append
+              %button.btn.btn-outline-secondary.btn-sm{type: "submit"}
+                %span.fa.fa-search{"aria-hidden" => "true"}
+
+      %ul.navbar-nav.mr-right
+        - if current_user.has_role?(:admin)
+          = render "layouts/roles/admin"
+        - if current_user.has_role?(:teacher)
+          = render "layouts/roles/teacher"
+        - if current_user.has_role?(:student)
+          = render "layouts/roles/student"
+
+      %ul.navbar-nav
+        %li.nav-item.dropdown
+          %a#navbarDropdown.nav-link.dropdown-toggle{ "aria-expanded" => "false", "aria-haspopup" => "true",
+                                                      "data-toggle" => "dropdown", :href => "#", :role => "button" }
+            .fa.fa-user
+            = current_user.email
+          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
+            = link_to user_path(current_user), class: "dropdown-item" do
+              .fa.fa-user-cog
+              Profile
+
+            = link_to edit_user_registration_path, class: "dropdown-item" do
+              .fa.fa-cog
+              Settings
+
+            = link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do
+              .fa.fa-sign-out-alt
+              Sign out
+
+    - else
+      %ul.navbar-nav.mr-auto
+        %li.nav-item.active
+          = link_to "Log in", new_user_session_path, class: "nav-link"
+        %li.nav-item.active
+          = link_to "Sign in", new_user_registration_path, class: "nav-link"

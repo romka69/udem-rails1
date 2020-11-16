@@ -1,0 +1,18 @@
+%footer.mt-5.p-5.bg-dark.text-white
+  .container
+    .row
+      .col-md-6.mt-3
+        &#169;
+        = Time.now.year
+        Udem - online learning service on Ruby on Rails.
+
+      .col-md-6.mt-3
+        %div
+          Service
+          .row
+          = link_to "Privacy politics", privacy_policy_path
+
+        %div.mt-3
+          About us
+          .row
+          = mail_to "#{Rails.application.credentials.dig(:email_author)}"

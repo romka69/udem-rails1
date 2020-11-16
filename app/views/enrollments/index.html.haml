@@ -1,0 +1,61 @@
+- content_for :title do
+  = set_title_index
+  \|
+  Udem
+
+%h1
+  != set_h1_index(Enrollment, @enrollments)
+
+.mb-2.pt-4
+  = search_form_for @q, url: @ransack_path do |f|
+    = f.search_field :review_cont, placeholder: "by review"
+    = f.search_field :rating_eq, placeholder: "by rating"
+    = f.search_field :user_email_cont, placeholder: "by email"
+    = f.search_field :course_title_cont, placeholder: "by course"
+    = f.search_field :price_eq, placeholder: "by price"
+    = f.submit
+    = link_to @ransack_path, class: "btn btn-sm" do
+      .fa.fa-sync
+
+.table-responsive
+  %table.table.table-bordered.table-striped.table-sm
+    %thead
+      %tr
+        %th= sort_link(@q, :id)
+        %th= sort_link(@q, :user_email, "User")
+        %th= sort_link(@q, :created_at)
+        %th= sort_link(@q, :course_title, "Course")
+        %th= sort_link(@q, :price)
+        %th= sort_link(@q, :updated_at)
+        %th= sort_link(@q, :rating)
+        %th= sort_link(@q, :review)
+        %th Progress
+        %th Certificate
+        %th
+        %th
+        %th
+
+    %tbody
+      - @enrollments.each do |enrollment|
+        %tr
+          %td= enrollment.id
+          %td= link_to enrollment.user.email, user_path(enrollment.user)
+          %td= enrollment.created_at.strftime("%e %B %Y, %H:%M")
+          %td= link_to enrollment.course.title, course_path(enrollment.course)
+          %td= number_to_currency(enrollment.price, locale: :en, precision: 0, delimiter: " ")
+          %td
+            - if enrollment.rating.present?
+              = enrollment.updated_at.strftime("%e %B %Y, %H:%M")
+          %td= enrollment.rating
+          %td= truncate(enrollment.review, length: 7)
+          %td= number_to_percentage(enrollment.course.progress(enrollment.user), precision: 0)
+          %td= link_to "Certificate", certificate_enrollment_path(enrollment, format: :pdf)
+          %td= link_to "See Review", enrollment
+          %td
+            - if policy(enrollment).edit?
+              = link_to "Edit Review", edit_enrollment_path(enrollment)
+          %td
+            - if policy(enrollment).destroy?
+              = link_to "Delete Enrollment", enrollment, method: :delete, data: { confirm: "Are you sure?" }
+
+!= pagy_bootstrap_nav(@pagy)
