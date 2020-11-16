@@ -1,7 +1,7 @@
 - content_for :title do
   Udem - online courses. Rails teach project.
 
-.jumbotron
+.jumbotron{style: "background-image: url('/home.png')"}
   .display-4.pb-4
     What do you want learn today?
 
@@ -9,6 +9,12 @@
     = search_form_for @ransack_courses, as: :courses_search, url: courses_path, class: "form-inline my-2 my-lg-0" do |f|
       = f.search_field :title_or_short_description_cont, placeholder: "Search", class: "form-control mr-sm-2"
       %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} Search
+  - else
+    .mt-2
+      = link_to "Sign in with GitHub", user_github_omniauth_authorize_path, class: "btn btn-outline-primary"
+      .py-1
+      = link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, class: "btn btn-outline-primary"
+
 
 .card-group.pb-3
   .card.card-body
@@ -54,6 +60,7 @@
       = render "courses/course", course: course
   .text-right
     = link_to "All purchased courses", purchased_courses_path
+
   %hr
 
 %h3
@@ -61,10 +68,11 @@
   Popular tags
 - @popular_tags.each do |tag|
   = link_to controller: controller_name, action: action_name, courses_search: {course_tags_tag_id_eq: tag.id} do
-    .badge.badge-info
-      %h6.m-0.p-0
-        = tag.name
+    .btn.btn-info
+      = tag.name
+      .badge.badge-light
         = tag.course_tags_count
+
 %hr
 
 %h3
@@ -75,6 +83,7 @@
     = render "courses/course", course: course
 .text-right
   = link_to "More popular courses", courses_path(courses_search: {s: "enrollments_count desc"})
+
 %hr
 
 %h3
@@ -85,6 +94,7 @@
     = render "courses/course", course: course
 .text-right
   = link_to "More rated courses", courses_path(courses_search: {s: "average_rating desc"})
+
 %hr
 
 %h3
@@ -95,6 +105,7 @@
     = render "courses/course", course: course
 .text-right
   = link_to "More latest courses", courses_path(courses_search: {s: "created_at desc"})
+
 %hr
 
 %h3

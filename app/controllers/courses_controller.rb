@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[show]
+  skip_before_action :authenticate_user!, only: %i[index show]
 
   before_action :set_course, only: %i[show edit update destroy approve unapprove analytics]
 
@@ -28,38 +28,32 @@ class CoursesController < ApplicationController
 
   def edit
     authorize @course
+
     @tags = Tag.all
   end
 
   def create
     @course = Course.new(course_params)
-    authorize @course
     @course.user = current_user
 
-    respond_to do |format|
-      if @course.save
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
-        format.json { render :show, status: :created, location: @course }
-      else
-        @tags = Tag.all
-        format.html { render :new }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
-      end
+    authorize @course
+
+    if @course.save
+      redirect_to @course, notice: 'Course was successfully created.'
+    else
+      @tags = Tag.all
+      render :new
     end
   end
 
   def update
     authorize @course
 
-    respond_to do |format|
-      if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
-        format.json { render :show, status: :ok, location: @course }
-      else
-        @tags = Tag.all
-        format.html { render :edit }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
-      end
+    if @course.update(course_params)
+      redirect_to @course, notice: 'Course was successfully updated.'
+    else
+      @tags = Tag.all
+      render :edit
     end
   end
 
@@ -67,10 +61,7 @@ class CoursesController < ApplicationController
     authorize @course
 
     if @course.destroy
-      respond_to do |format|
-        format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+      redirect_to courses_url, notice: 'Course was successfully destroyed.'
     else
       redirect_to @course, alert: "Course has enrollments. Can't destroy."
     end
@@ -81,9 +72,9 @@ class CoursesController < ApplicationController
     @ransack_courses = Course.joins(:enrollments).where(enrollments: { user: current_user })
                              .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
-
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
+
     render "index"
   end
 
@@ -93,9 +84,9 @@ class CoursesController < ApplicationController
                              .merge(Enrollment.pending_review.where(user: current_user))
                              .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
-
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
+
     render "index"
   end
 
@@ -104,9 +95,9 @@ class CoursesController < ApplicationController
     @ransack_courses = Course.where(user: current_user)
                              .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at desc']
-
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
+
     render "index"
   end
 
@@ -129,9 +120,9 @@ class CoursesController < ApplicationController
     @ransack_courses = Course.unapproved
                            .ransack(params[:courses_search], search_key: :courses_search)
     @ransack_courses.sorts = ['created_at asc']
-
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
+
     render "index"
   end
 
@@ -146,8 +137,8 @@ class CoursesController < ApplicationController
     end
 
     def course_params
-      params.require(:course).permit(:title, :description, :short_description,
-                                     :price, :level, :language, :published, :logo, tag_ids: [],
-                                     lessons_attributes: [:id, :title, :content, :video, :_destroy])
+      params.require(:course).permit(:title, :description, :short_description, :price,
+                                     :level, :language, :published, :logo, tag_ids: [],
+                                     lessons_attributes: %i[id title content video _destroy])
     end
 end
