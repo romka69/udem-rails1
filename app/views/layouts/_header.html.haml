@@ -55,6 +55,12 @@
 
     - else
       %ul.navbar-nav.mr-auto
+        %li.nav-item
+          = link_to courses_path, class: "nav-link" do
+            .fa.fa-graduation-cap
+            Courses
+
+      %ul.navbar-nav.mr-right
         %li.nav-item.active
           = link_to "Log in", new_user_session_path, class: "nav-link"
 

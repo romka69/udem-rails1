@@ -33,6 +33,18 @@
         - else
           Comment was deleted
 
+      - elsif a.trackable_type == "Course"
+        - if Course.where(id: a.trackable_id).present?
+          = link_to a.trackable.content, course_path(a.trackable.course)
+        - else
+          Course was deleted
+
+      - elsif a.trackable_type == "User"
+        - if User.where(id: a.trackable_id).present?
+          = link_to a.trackable.username, a.trackable
+        - else
+          User deleted
+
       - else
         = link_to a.trackable.title, a.trackable
 

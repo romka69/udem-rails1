@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[show]
+  skip_before_action :authenticate_user!, only: %i[index show]
 
   before_action :set_course, only: %i[show edit update destroy approve unapprove analytics]
 
