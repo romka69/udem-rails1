@@ -1,4 +1,4 @@
-# Project
+# Udem-rails
 
 ![](https://i.imgur.com/wb8jRyA.png)
 
